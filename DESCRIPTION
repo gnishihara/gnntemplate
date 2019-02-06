@@ -1,0 +1,10 @@
+Package: gnntemplate
+Type: Package
+Title: RMarkdown Report Template for the Lab
+Version: 0.1.0
+Author: greg nishihara
+Maintainer: greg nishihara <gnishihara@gmail.com>
+Description: Templates for making nicely formatted pdf files with RMarkdown.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true

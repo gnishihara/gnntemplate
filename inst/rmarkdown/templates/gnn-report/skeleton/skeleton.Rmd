@@ -1,0 +1,79 @@
+---
+title: "Title"
+subtitle: "Subtitle"
+author: "Name"
+date: "Date"
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{pdflscape}
+  - \usepackage{float}
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    dev: cairo_pdf
+    keep_tex: yes
+    citation_package: biblatex
+    toc: true
+    toc_depth: 3
+documentclass: bxjsarticle
+classoption: "xelatex, ja=standard, english"
+fig_width: 160/25.4
+fig_height: 160/25.4
+fig_crop: yes
+fig_caption: yes
+lot: yes
+lof: yes
+fontsize: 10pt
+geometry: a4paper
+link-citations: true
+bibliography: 
+mainfont: "Noto Serif"
+sansfont: "Noto Sans"
+monofont: "Source Code Pro"
+CJKmainfont: "Noto Serif CJK JP"
+CJKsansfont: "Noto Sans CJK JP"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = FALSE,
+                      out.width = "80%", 
+                      out.height = "70%",
+                      fig.align = "center", 
+                      warning = FALSE, 
+                      error = FALSE, 
+                      autodep = TRUE)
+options(knitr.kable.NA = '', texi2dvi = "xetex")
+options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
+```
+
+classoption の english を外すと，Fig. と Table は 図と表にかわります。
+フォントの大きさは fontsize で変えられます。図表の目次が不要であれば，
+lot（表）と lof（図）を no にしてください。目次も不要なら toc を no に
+してください。bibliography にbibtexのファイルを渡せば，引用論文を簡単
+に引用できます。
+
+# Read packages
+
+```{r, message=FALSE}
+library(tidyverse)  # For data manipulation and graphics
+library(lubridate)  # For dates and times
+library(kableExtra) # For nicely formatted tables
+```
+
+# Load data
+
+```{r}
+
+```
+
+# Analysis
+
+```{r}
+
+```
+
+
+# References
+
