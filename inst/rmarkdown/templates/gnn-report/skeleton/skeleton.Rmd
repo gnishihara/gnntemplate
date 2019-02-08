@@ -9,7 +9,7 @@ header-includes:
   - \usepackage{pdflscape}
   - \usepackage{float}
 output: 
-  pdf_document:
+  bookdown::pdf_document2:
     latex_engine: xelatex
     dev: cairo_pdf
     keep_tex: yes
@@ -18,8 +18,6 @@ output:
     toc_depth: 3
 documentclass: bxjsarticle
 classoption: "xelatex, ja=standard, english"
-fig_width: 160/25.4
-fig_height: 160/25.4
 fig_crop: yes
 fig_caption: yes
 lot: yes
@@ -38,6 +36,9 @@ CJKsansfont: "Noto Sans CJK JP"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache = FALSE,
+                      echo = FALSE,
+                      fig.width = 2*80 / 25.4,
+                      fig.height = 2*80/25.4,
                       out.width = "80%", 
                       out.height = "70%",
                       fig.align = "center", 
@@ -46,6 +47,7 @@ knitr::opts_chunk$set(cache = FALSE,
                       autodep = TRUE)
 options(knitr.kable.NA = '', texi2dvi = "xetex")
 options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
+Sys.setlocale("LC_TIME", "en_US.UTF-8") # アメリカ英語に設定
 ```
 
 classoption の english を外すと，Fig. と Table は 図と表にかわります。
