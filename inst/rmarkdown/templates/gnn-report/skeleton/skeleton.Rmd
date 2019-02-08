@@ -16,8 +16,12 @@ output:
     citation_package: biblatex
     toc: true
     toc_depth: 3
+    includes:
+      in-header: force-figure-position.tex
 documentclass: bxjsarticle
 classoption: "xelatex, ja=standard, english"
+fig_width: 4*80/25.4
+fig_height: 4*80/25.4
 fig_crop: yes
 fig_caption: yes
 lot: yes
