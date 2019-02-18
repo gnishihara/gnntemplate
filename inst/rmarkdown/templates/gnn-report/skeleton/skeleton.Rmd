@@ -20,8 +20,6 @@ output:
       in-header: force-figure-position.tex
 documentclass: bxjsarticle
 classoption: "xelatex, ja=standard, english"
-fig_width: 4*80/25.4
-fig_height: 4*80/25.4
 fig_crop: yes
 fig_caption: yes
 lot: yes
@@ -54,11 +52,40 @@ options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
 Sys.setlocale("LC_TIME", "en_US.UTF-8") # アメリカ英語に設定
 ```
 
-classoption の english を外すと，Fig. と Table は 図と表にかわります。
+classoption の english を外すと，**Fig.** と **Table** は **図**と**表**にかわります。
 フォントの大きさは fontsize で変えられます。図表の目次が不要であれば，
 lot（表）と lof（図）を no にしてください。目次も不要なら toc を no に
 してください。bibliography にbibtexのファイルを渡せば，引用論文を簡単
 に引用できます。
+
+Markdown に書式について：
+
+* 斜体 (*italic*) 
+* 太文字 (**bold**) 
+* 下付き文字は (NH~4~) 
+* 上付き文字は (x^2^) 
+
+数式は LaTex 方式でかきます。文書中の数式 $y=b_0 + b_1 x$ です。 
+
+独立した数式を書く時は `$$` のペアの間に挟んでください。
+
+$$
+E=mc^2
+$$
+
+箇条書きは次のようにかきます。
+
+* 箇条書き
+* 箇条書き
+   * 箇条書き
+   * 箇条書き
+1. 箇条書き
+2. 箇条書き
+   A) 箇条書き
+   B) 箇条書き
+      a.  箇条書き
+      b.  箇条書き
+
 
 # Read packages
 
