@@ -8,6 +8,9 @@ header-includes:
   - \usepackage{longtable}
   - \usepackage{pdflscape}
   - \usepackage{float}
+  - \usepackage[section]{placeins}
+  - \newcommand{\blandscape}{\begin{landscape}}
+  - \newcommand{\elandscape}{\end{landscape}}  
 output: 
   bookdown::pdf_document2:
     latex_engine: xelatex
@@ -90,9 +93,11 @@ $$
 # Read packages
 
 ```{r, message=FALSE}
-library(tidyverse)  # For data manipulation and graphics
-library(lubridate)  # For dates and times
-library(kableExtra) # For nicely formatted tables
+library(tidyverse)
+library(lubridate)
+library(readxl)
+library(knitr)
+library(kableExtra)
 ```
 
 # Load data
