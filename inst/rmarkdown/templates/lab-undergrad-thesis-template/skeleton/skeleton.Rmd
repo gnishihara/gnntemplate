@@ -1,0 +1,185 @@
+---
+title: "タイトル"
+author: "名前"
+date: "年"
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{pdflscape}
+  - \usepackage{float}
+  - \usepackage[section]{placeins}
+  - \usepackage{hanging}
+  - \newcommand{\bhanging}{\begin{hangparas}{1cm}{1}}
+  - \newcommand{\ehanging}{\end{hangparas}}
+  - \newcommand{\blandscape}{\begin{landscape}}
+  - \newcommand{\elandscape}{\end{landscape}}  
+  - \setpagelayout{hmargin={3cm, 2.5cm},vmargin={2.5cm,2.5cm}}
+  - \widowpenalty=10000
+  - \clubpenalty=10000
+output: 
+  bookdown::pdf_document2:
+    latex_engine: xelatex
+    dev: cairo_pdf
+    keep_tex: yes
+    citation_package: natbib
+    toc: true
+    toc_depth: 2
+    includes:
+      in-header: force-figure-position.tex
+    pandoc_args: --template=report_template.latex
+documentclass: bxjsarticle
+classoption: "xelatex, ja=standard"
+fig_crop: yes
+fig_caption: yes
+lot: yes
+lof: yes
+fontsize: 12pt
+geometry: a4paper
+link-citations: true
+bibliography: "bibliography.tex"
+csl: "phycological-research.csl"
+biblio-title: "参考文献"
+mainfont: "Noto Serif"
+sansfont: "Noto Sans"
+monofont: "Source Code Pro"
+CJKmainfont: "Noto Serif CJK JP"
+CJKsansfont: "Noto Sans CJK JP"
+editor_options: 
+  chunk_output_type: console
+---
+
+\clearpage
+\newpage
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = TRUE,
+                      echo = FALSE,
+                      fig.width = 2*80/25.4,
+                      fig.height = 2*80/25.4,
+                      out.width = "60%", 
+                      out.height = "60%",
+                      fig.align = "center", 
+                      warning = FALSE, 
+                      message=FALSE,
+                      error = FALSE, 
+                      autodep = TRUE)
+options(knitr.kable.NA = '', texi2dvi = "xetex")
+options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
+Sys.setlocale("LC_TIME", "en_US.UTF-8") # アメリカ英語に設定
+```
+
+```{r read-packages}
+library(magrittr)
+library(tidyverse)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(broom)
+library(lemon)
+```
+
+
+# 序論
+
+RMarkdown で論文書く時，それぞれの文章を独立した行に記述してください。
+つまり，「。」の後，かならず改行しましょう。
+空の行をいれれば，新しい段落がつくれます。
+
+新しい段落です。
+ちなみに，参考文献の BiBTex ファイルを作っておけば，簡単に引用できます。
+BiBTexについてはこのリンクへ：<https://qiita.com/SUZUKI_Masaya/items/14f9727845e020f8e7e9>
+ベイズ統計学のおすすめのテキストは Gelman [-@Gelman2013]。
+鹿児島大学とよく共同研究をしています (Borlongan2018)。
+引用についての詳細はこのリンクへ：<https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
+
+マークダウンないの **太字** や *斜体* は `*` を使用します。
+詳細は：<http://www.markdown.jp/syntax/>
+
+
+よく使う記法：
+
+* 斜体 (*italic*) 
+* 太文字 (**bold**) 
+* 下付き文字は (NH~4~) 
+* 上付き文字は (x^2^) 
+
+# 材料と方法
+
+数式は `$$` か `$` の間に挟めばつくれます。`$` は行内に数式をいれますが，`$$` は文章と独立した式ができます。
+例えば，$P_{\text{net}}=P_{\text{max}}\left (1-\exp\left(\frac{-\alpha}{P_{\text{max}}} I\right)\right) - R_d$と，
+
+$$
+P_{\text{net}}=P_{\text{max}}\left (1-\exp\left(\frac{-\alpha}{P_{\text{max}}} I\right)\right) - R_d
+$$
+
+ところが，数式に番号をふるなら，次のように書いてください。
+これは LaTex のコードをつかって，数式を書き込んでいます。
+`\begin{equation}`と `\begin{equation}` は数式環境を設定しています。
+この中に `(\#eq:pecurve)` が書かれていますが，これは数式のラベルです。
+ラベルは次のように引用できます（式 \@ref(eq:pecurve)）。
+
+\begin{equation}
+$P_{\text{net}}=P_{\text{max}}\left (1-\exp\left(\frac{-\alpha}{P_{\text{max}}} I\right)\right) - R_d$
+(\#eq:pecurve)
+\end{equation}
+
+# 結果
+
+# 考察
+
+# 図
+
+図はこのように引用できます（\@ref(fig:figure1)）
+
+```{r figure1, fig.cap = CAP}
+CAP = "図はこのように埋め込みます。"
+iris %>% as_tibble() %>% 
+  ggplot() +
+  geom_point(aes(x = Species, y = Sepal.Length),
+             position = position_jitter(0.1))
+```
+
+
+# 表
+
+表はこのように引用できます（表 \@ref(tab:table1), 表 \@ref(tab:table2)）。
+
+```{r table1}
+CAP = "表の作り方は難しくないが，綺麗に作るためには工夫が必要です。
+これはシンプルな表の例です。"
+
+iris %>% 
+  as_tibble() %>% 
+  slice(1:10) %>% 
+  kable(format = "latex",
+        caption = CAP)
+```
+
+
+```{r table2}
+CAP = "ビオウギアヤメ (\\textit{Iris setosa}) の花びら (petal) とガク片 (sepal) の長さと幅 (mm)。 "
+CNAMES = c("Species", "Sepal length", "Sepal width", "Petal length", "Petal width")
+iris %>% 
+  as_tibble() %>% 
+  filter(str_detect(Species, "setosa")) %>% 
+  mutate(Species = paste("Iris", Species)) %>% 
+  mutate(Species = paste0("\\textit{", Species, "}")) %>% 
+  select(Species, Sepal.Length:Petal.Width) %>% 
+  kable(format = "latex", 
+        caption = CAP,
+        col.names = CNAMES,
+        booktabs = TRUE,
+        escape = FALSE) %>% 
+  kable_styling(latex_options = "HOLD_position",
+                font_size = 10)
+```
+
+# 参考文献
+
+# 付録 {-}
+
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
