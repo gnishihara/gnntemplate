@@ -42,12 +42,13 @@ CJKsansfont: "Noto Sans CJK JP"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache = FALSE,
                       echo = FALSE,
-                      fig.width = 2*80 / 25.4,
+                      fig.width = 2*80/25.4,
                       fig.height = 2*80/25.4,
                       out.width = "80%", 
                       out.height = "70%",
                       fig.align = "center", 
                       warning = FALSE, 
+                      message = FALSE,
                       error = FALSE, 
                       autodep = TRUE)
 options(knitr.kable.NA = '', texi2dvi = "xetex")
