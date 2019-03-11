@@ -21,12 +21,11 @@ output:
     latex_engine: xelatex
     dev: cairo_pdf
     keep_tex: yes
-    citation_package: natbib
     toc: true
     toc_depth: 2
     includes:
       in-header: force-figure-position.tex
-    pandoc_args: --template=report_template.latex
+    pandoc_args: [ "--template=report_template.latex", "--csl=journal-of-phycology.csl" ] 
 documentclass: bxjsarticle
 classoption: "xelatex, ja=standard"
 fig_crop: yes
@@ -36,8 +35,7 @@ lof: yes
 fontsize: 12pt
 geometry: a4paper
 link-citations: true
-bibliography: "bibliography.tex"
-csl: "phycological-research.csl"
+bibliography: "bibliography.bib"
 biblio-title: "参考文献"
 mainfont: "Noto Serif"
 sansfont: "Noto Sans"
@@ -89,7 +87,7 @@ RMarkdown で論文書く時，それぞれの文章を独立した行に記述�
 ちなみに，参考文献の BiBTex ファイルを作っておけば，簡単に引用できます。
 BiBTexについてはこのリンクへ：<https://qiita.com/SUZUKI_Masaya/items/14f9727845e020f8e7e9>
 ベイズ統計学のおすすめのテキストは Gelman [-@Gelman2013]。
-鹿児島大学とよく共同研究をしています (Borlongan2018)。
+鹿児島大学とよく共同研究をしています ([@Borlongan2018])。
 引用についての詳細はこのリンクへ：<https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
 
 マークダウンないの **太字** や *斜体* は `*` を使用します。
@@ -119,7 +117,7 @@ $$
 ラベルは次のように引用できます（式 \@ref(eq:pecurve)）。
 
 \begin{equation}
-$P_{\text{net}}=P_{\text{max}}\left (1-\exp\left(\frac{-\alpha}{P_{\text{max}}} I\right)\right) - R_d$
+P_{\text{net}}=P_{\text{max}}\left (1-\exp\left(\frac{-\alpha}{P_{\text{max}}} I\right)\right) - R_d
 (\#eq:pecurve)
 \end{equation}
 
@@ -129,7 +127,7 @@ $P_{\text{net}}=P_{\text{max}}\left (1-\exp\left(\frac{-\alpha}{P_{\text{max}}} 
 
 # 図
 
-図はこのように引用できます（\@ref(fig:figure1)）
+図はこのように引用できます（図 \@ref(fig:figure1)）
 
 ```{r figure1, fig.cap = CAP}
 CAP = "図はこのように埋め込みます。"
@@ -144,7 +142,7 @@ iris %>% as_tibble() %>%
 
 表はこのように引用できます（表 \@ref(tab:table1), 表 \@ref(tab:table2)）。
 
-```{r table1}
+```{r table1, results = "asis"}
 CAP = "表の作り方は難しくないが，綺麗に作るためには工夫が必要です。
 これはシンプルな表の例です。"
 
@@ -153,6 +151,8 @@ iris %>%
   slice(1:10) %>% 
   kable(format = "latex",
         caption = CAP)
+# テーブルの後改ページする。このとき，results="asis"が必要。
+cat("\n\\clearpage\n")
 ```
 
 
@@ -174,10 +174,7 @@ iris %>%
                 font_size = 10)
 ```
 
-# 参考文献
-
-# 付録 {-}
-
+参考文献は自動的にここにきます。
 
 \newpage
 \thispagestyle{empty}
