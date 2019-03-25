@@ -1,21 +1,7 @@
 ---
 title: "タイトル"
 author: "名前"
-date: "年"
-header-includes:
-  - \usepackage{booktabs}
-  - \usepackage{longtable}
-  - \usepackage{pdflscape}
-  - \usepackage{float}
-  - \usepackage[section]{placeins}
-  - \usepackage{hanging}
-  - \newcommand{\bhanging}{\begin{hangparas}{1cm}{1}}
-  - \newcommand{\ehanging}{\end{hangparas}}
-  - \newcommand{\blandscape}{\begin{landscape}}
-  - \newcommand{\elandscape}{\end{landscape}}  
-  - \setpagelayout{hmargin={3cm, 2.5cm},vmargin={2.5cm,2.5cm}}
-  - \widowpenalty=10000
-  - \clubpenalty=10000
+date: "2019 年 3 月"
 output: 
   bookdown::pdf_document2:
     latex_engine: xelatex
@@ -23,11 +9,10 @@ output:
     keep_tex: yes
     toc: true
     toc_depth: 2
-    includes:
-      in-header: force-figure-position.tex
-    pandoc_args: [ "--template=report_template.latex", "--csl=journal-of-phycology.csl" ] 
+    citation_package: natbib
+    pandoc_args: [ "--template=report-template.latex" ] 
 documentclass: bxjsarticle
-classoption: "xelatex, ja=standard"
+classoption: "xelatex, ja=standard, openright, oneside"
 fig_crop: yes
 fig_caption: yes
 lot: yes
@@ -36,7 +21,7 @@ fontsize: 12pt
 geometry: a4paper
 link-citations: true
 bibliography: "bibliography.bib"
-biblio-title: "参考文献"
+biblio-style: jeconunicode
 mainfont: "Noto Serif"
 sansfont: "Noto Sans"
 monofont: "Source Code Pro"
@@ -47,7 +32,7 @@ editor_options:
 ---
 
 \clearpage
-\newpage
+\blankpage
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache = TRUE,
@@ -61,6 +46,7 @@ knitr::opts_chunk$set(cache = TRUE,
                       message=FALSE,
                       error = FALSE, 
                       autodep = TRUE)
+options(tinytex.latexmk.emulation = FALSE)
 options(knitr.kable.NA = '', texi2dvi = "xetex")
 options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
 Sys.setlocale("LC_TIME", "en_US.UTF-8") # アメリカ英語に設定
@@ -87,8 +73,9 @@ RMarkdown で論文書く時，それぞれの文章を独立した行に記述�
 ちなみに，参考文献の BiBTex ファイルを作っておけば，簡単に引用できます。
 BiBTexについてはこのリンクへ：<https://qiita.com/SUZUKI_Masaya/items/14f9727845e020f8e7e9>
 ベイズ統計学のおすすめのテキストは Gelman [-@Gelman2013]。
-鹿児島大学とよく共同研究をしています ([@Borlongan2018])。
+鹿児島大学とよく共同研究をしています[@Borlongan2018]。
 引用についての詳細はこのリンクへ：<https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
+複数の文献を引用してもいいが，年代の若い，アルファベット純にします[@taniguchi1999; @yoshida2011; @nakashima2013]。
 
 マークダウンないの **太字** や *斜体* は `*` を使用します。
 詳細は：<http://www.markdown.jp/syntax/>
@@ -161,6 +148,7 @@ CAP = "ビオウギアヤメ (\\textit{Iris setosa}) の花びら (petal) とガ
 CNAMES = c("Species", "Sepal length", "Sepal width", "Petal length", "Petal width")
 iris %>% 
   as_tibble() %>% 
+  slice(1:10) %>% 
   filter(str_detect(Species, "setosa")) %>% 
   mutate(Species = paste("Iris", Species)) %>% 
   mutate(Species = paste0("\\textit{", Species, "}")) %>% 
@@ -176,7 +164,3 @@ iris %>%
 
 参考文献は自動的にここにきます。
 
-\newpage
-\thispagestyle{empty}
-\mbox{}
-\newpage
