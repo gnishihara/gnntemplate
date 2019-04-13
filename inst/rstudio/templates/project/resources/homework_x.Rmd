@@ -1,7 +1,7 @@
 ---
-title: "小課題 01"
-author: "名 姓"
-date: "2019-04-01"
+title: TITLE
+author: NAME
+date: DATE
 output: html_document
 editor_options: 
   chunk_output_type: inline
@@ -10,11 +10,6 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache = FALSE)
 ```
-
-このファイル形式は RMarkdown とよびます。
-全ての小課題はこのファイルをすかってレポート作成します。
-
-[RMarkdownとは](http://www-mri.fish.nagasaki-u.ac.jp/gnn/kisotoukei_rmarkdown_howto.html)
 
 # 注意事項 （提出するときはこのセクションを削除してください。）
 >
@@ -138,5 +133,10 @@ $$
       a.  箇条書き
       b.  箇条書き
 
+# 最後に
 
+このファイル形式は RMarkdown とよびます。
+全ての小課題はこのファイルをすかってレポート作成します。
+
+[RMarkdownとは](http://www-mri.fish.nagasaki-u.ac.jp/gnn/kisotoukei_rmarkdown_howto.html)
 

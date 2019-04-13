@@ -1,56 +1,19 @@
-# RMarkdown templates for the lab
+# RM# arkdown templates for the lab
 
 自分の研究室のための R Markdown テンプレートです。テンプレートが増えれば，ここに追加します。
 
 テンプレートが増えれば，ここに追加します。
 
-そのままテンプレートをつかうと，図の位置は Latex に任せられます。
-確実に，図の位置を固定したいのであれば，作業フォルダにつぎの内容の
-tex ファイルを作ってください (参考リンク：<https://stackoverflow.com/a/33801326>)。
+現在３つのテンプレートがあります。
 
-```
-\usepackage{float}
-\let\origfigure\figure
-\let\endorigfigure\endfigure
-\renewenvironment{figure}[1][2] {
-    \expandafter\origfigure\expandafter[H]
-} {
-    \endorigfigure
-}
-```
+１）gnn report （未完成）
+２）研究室卒業論文テンプレート （９割完成）
+３）基礎統計学用テンプレートき
 
-ファイル名を `force-figure-position.tex` にした場合，RMarkdown ファイルの
-YAMLの `output` の部分を次のように，変えてください。
+## 新しいテンプレートの作り方
 
-**Before:**
-
-```
-output: 
-  bookdown::pdf_document2:
-    latex_engine: xelatex
-    dev: cairo_pdf
-    keep_tex: yes
-    citation_package: biblatex
-    toc: true
-    toc_depth: 3
-documentclass: bxjsarticle
-```
-
-**After:**
-
-```
-output: 
-  bookdown::pdf_document2:
-    latex_engine: xelatex
-    dev: cairo_pdf
-    keep_tex: yes
-    citation_package: biblatex
-    toc: true
-    toc_depth: 3
-    includes:
-      in-header: force-figure-position.tex
-documentclass: bxjsarticle
-```
+`usethis::use_rmarkdown_template()` でテンプレートのフォルダ構造をつくる。
+参考：<https://bookdown.org/yihui/rmarkdown/template-structure.html>
 
 
 greg

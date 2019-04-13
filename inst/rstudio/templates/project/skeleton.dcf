@@ -1,3 +1,27 @@
 Binding: statscourse_skeleton
 Title: 基礎統計学用プロジェクト
+Icon: icon.png
 OpenFiles: *.Rmd
+
+Parameter: yourname
+Widget: TextInput
+Label: 名前
+Default: 名 姓
+
+Parameter: number
+Widget: TextInput
+Label: 学生番号
+Default: 45110000
+Position: right
+
+Parameter: assignment
+Widget: TextInput
+Label: 小課題
+Default: 01
+
+
+Parameter: thedate
+Widget: TextInput
+Label: 提出日
+Default: 2019-04-01
+Position: right

@@ -1,13 +1,21 @@
-# This function showcases how one might write a function to be used as an
-# RStudio project template. This function will be called when the user invokes
-# the New Project wizard using the project template defined in the template file
-# at:
-#
-#   inst/rstudio/templates/project/hello_world.dcf
-#
-# The function itself just echos its inputs and outputs to a file called INDEX,
-# which is then opened by RStudio when the new project is opened.
-statscourse_skeleton <- function(path, ...) {
+#' Create statscourse project directory
+#'
+#' This function is used to create the directory structure for the
+#' basic statistics homework assignments. It will also automatically
+#' create an RMarkdown file for the homework assignement.
+#'
+#' @param path The path of the created project.
+#' @param assignment The homework assignment number.
+#' @param number The student id number.
+#' @param yourname The student name.
+#' @param thedate The date.
+#'
+statscourse_skeleton <- function(path,
+                                 assignment = "01",
+                                 number = "45110000",
+                                 yourname = "名 姓",
+                                 thedate = "2014-04-01") {
+  # collect inputs
 
   # ensure path exists
   dir.create(path, recursive = TRUE, showWarnings = FALSE)
@@ -18,9 +26,14 @@ statscourse_skeleton <- function(path, ...) {
   target = file.path(path, files)
   file.copy(source, target)
   f = file.path(path, 'homework_x.Rmd')
-
+  repl = paste0(number, "_", assignment)
+  n = gsub("homework_x", repl, f)
   file.rename(f, n)
-
+  f = file.path(n)
+  xfun::gsub_file(f, "TITLE", paste0("小課題 ", assignment))
+  xfun::gsub_file(f, "NAME", yourname)
+  xfun::gsub_file(f, "DATE", thedate)
   TRUE
 
 }
+
