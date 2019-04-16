@@ -1,4 +1,4 @@
-# RM# arkdown templates for the lab
+# RMarkdown templates for the lab
 
 自分の研究室のための R Markdown テンプレートです。テンプレートが増えれば，ここに追加します。
 
@@ -8,7 +8,7 @@
 
 １）gnn report （未完成）
 ２）研究室卒業論文テンプレート （９割完成）
-３）基礎統計学用テンプレートき
+３）基礎統計学用テンプレート
 
 ## 新しいテンプレートの作り方
 

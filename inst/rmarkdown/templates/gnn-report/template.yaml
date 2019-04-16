@@ -1,4 +1,4 @@
 name: gnn report
 description: >
-   Template for the lab.
+   ラボ用のレポートテンプレート。出力はPDFです。
 create_dir: FALSE
