@@ -1,0 +1,4 @@
+name: GNN Beamer
+description: >
+   A Beamer template for the lab.
+create_dir: true
