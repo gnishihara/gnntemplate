@@ -4,7 +4,7 @@
 
 find_file <- function(template, file) {
   template <- system.file("rmarkdown", "templates",
-                          "gnn-beamer",file,
+                          gsub("_", "-", template),file,
                           package = "gnntemplate")
   if (template == "") {
     stop("Couldn't find template file ", template, "/", file, call. = FALSE)
@@ -17,5 +17,5 @@ find_resource <- function(template, file) {
   find_file(template, file.path("resources", file))
 }
 
-
-find_resource("gnn_beamer", "template.tex")
+# find_resource("gnn_beamer", "template.tex")
+# find_resource("gnn_statistics", "template.tex")
