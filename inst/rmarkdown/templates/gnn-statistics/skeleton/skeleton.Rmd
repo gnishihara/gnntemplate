@@ -1,0 +1,139 @@
+---
+title: "Presentation Title"
+shorttitle: "Short Title"
+subtitle: "Presentation Subtitle"
+author: "Greg Nishihara"
+short-author: "Nishihara"
+date: '`r format(Sys.Date(), "%Y %B %d")`'
+short-date: '`r format(Sys.Date(), "%y/%m/%d")`'
+institute: | 
+  | Nagasaki University
+  | Statistics
+short-institute: "OMST"
+department: "Organization for Marine Science and Technology" # Institute must be defined
+mainfont: Noto Serif
+sansfont: Noto Sans
+monofont: Source Code Pro
+CJKmonofont: Noto Sans Mono CJK JP
+CJKsansfont: Noto Sans CJK JP
+CJKmainfont: Noto Serif CJK JP
+mainfontoptions: [ "Mapping=tex-text" ]
+sansfontoptions: [ "Scale=MatchLowercase", "Mapping=tex-text" ]
+monofontoptions: [ "Scale=MatchLowercase" ]
+fontsize: 14pt
+classoption: [ "aspectratio = 1610" ]
+handout: true
+output: 
+   gnntemplate::gnn_statistics
+---
+
+```{r setup, include=FALSE, cache = FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height = 3, fig.width = 3, out.width = "40%")
+library(tidyverse)
+```
+
+# Block Quote
+
+## Block Quote
+
+> Just to let you know,
+> this is an example of a block quote.
+
+# Ordered List
+
+## Ordered List
+- Sme **R** packages:
+    1. **`ggplot2`**
+    2. **`dplyr`**
+    3. **`fivethirtyeight`**
+
+# Unordered List
+
+## Unordered List
+- Phd
+    - Pee
+    - Kenjiro
+    - Yukio
+- MS
+    - Hoshimi
+    - Dom
+    - Yuhei
+    - Azusa
+    - Mizuki
+- BS?
+
+# R Code
+
+## R Code
+
+Here is some **R** code
+
+\scriptsize
+
+```{r, eval = FALSE}
+x = rnorm(100, 50, 5)
+hist(x)
+```
+
+# Equations
+
+## Equations
+
+- Calculate sample variance ($s^2$)
+
+\begin{equation}
+{s}^{2}=\frac{1}{n-1}\sum{{({X}_{i}-\bar{X})}^{2}}
+\label{eq:variance}
+\end{equation}
+
+## Equations
+
+- The Gaussian (Normal) equation
+
+\begin{equation}
+f(x|μ, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)
+\label{eq:variance}
+\end{equation}
+
+# R Figures
+
+## R Figures
+
+```{r, eval = TRUE, echo=FALSE, fig.cap = CAP, fig.align = "center"}
+CAP = "This is a figure."
+as_tibble(iris) %>% 
+  ggplot() +
+  geom_point(aes(x=Petal.Width, y=Petal.Length, color = Species))
+```
+
+## Inserting figures
+
+```{r, echo = F}
+knitr::include_graphics("logo/ape_background.png")
+```
+
+# Links
+
+## Links
+
+- \url{https://twitter.com/nagasakiprof}
+
+
+
+## Multiple columns
+
+\begincols
+\begincol[T]{0.5\textwidth}
+* Near-shore terrestrial enviroments (dunes, sandy shores, human settlements)
+* Intertidal environments (estuaries, lagoons, mangroves, wetlands, aquaculture areas)
+
+\endcol
+\begincol[T]{0.5\textwidth}
+* Benthic environments (kelp/sargassum forests, seagrass meadows, coral reefs, soft bottom areas on the continental shelf, artificial reefs)
+* Pelagic environments (waters above the continental shelf, fish farms)
+
+\endcol
+\endcols
+
+
+# Closing Slide
