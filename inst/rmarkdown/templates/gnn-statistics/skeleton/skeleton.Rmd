@@ -106,12 +106,6 @@ as_tibble(iris) %>%
   geom_point(aes(x=Petal.Width, y=Petal.Length, color = Species))
 ```
 
-## Inserting figures
-
-```{r, echo = F}
-knitr::include_graphics("logo/ape_background.png")
-```
-
 # Links
 
 ## Links
