@@ -29,7 +29,7 @@ $endif$
       \usefonttheme{professionalfonts}
       \usepackage{unicode-math}
       \setmathfont{Asana Math}
-      \setmathfont{Fira Math}
+      % \setmathfont{Fira Math}
     \else
       \usepackage{fontspec}
     \fi
@@ -337,9 +337,9 @@ layout,
 
 % Itemization
 % This requires unicode-math!
-\setbeamertemplate{itemize item}{$$●$$}
-\setbeamertemplate{itemize subitem}{$$◯$$}
-\setbeamertemplate{itemize subsubitem}{$$●$$}
+\setbeamertemplate{itemize item}{●}
+\setbeamertemplate{itemize subitem}{○}
+\setbeamertemplate{itemize subsubitem}{●}
 \setlength{\parskip}{0.5em}
 
 % General
@@ -504,35 +504,36 @@ layout,
 \setbeamertemplate{headline}{} % Remove header navigation bar
 \setbeamertemplate{navigation symbols}{}
 \makeatletter
-\def\progressbar@progressbar{} % the progress bar
-\newcount\progressbar@tmpcounta% auxiliary counter
-\newcount\progressbar@tmpcountb% auxiliary counter
-\newdimen\progressbar@pbht %progressbar height
-\newdimen\progressbar@pbwd %progressbar width
-\newdimen\progressbar@tmpdim % auxiliary dimension
-
-\progressbar@pbwd=\paperwidth
-\progressbar@pbht=1.25ex
-
-% the progress bar
-\def\progressbar@progressbar{%
-  \progressbar@tmpcounta=\insertframenumber
-  \progressbar@tmpcountb=\inserttotalframenumber
-  \progressbar@tmpdim=\progressbar@pbwd
-  \divide\progressbar@tmpdim by 100
-  \multiply\progressbar@tmpdim by \progressbar@tmpcounta
-  \divide\progressbar@tmpdim by \progressbar@tmpcountb
-  \multiply\progressbar@tmpdim by 100
-
-  \begin{tikzpicture}[very thin]
-    \draw[fill=nagasakiBlue] (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
-    \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\progressbar@tmpdim, \progressbar@pbht);
-  \end{tikzpicture}%
-}
+% \def\progressbar@progressbar{} % the progress bar
+% \newcount\progressbar@tmpcounta% auxiliary counter
+% \newcount\progressbar@tmpcountb% auxiliary counter
+% \newdimen\progressbar@pbht %progressbar height
+% \newdimen\progressbar@pbwd %progressbar width
+% \newdimen\progressbar@tmpdim % auxiliary dimension
+%
+% \progressbar@pbwd=\paperwidth
+% \progressbar@pbht=1.25ex
+%
+% % the progress bar
+% \def\progressbar@progressbar{%
+%   \progressbar@tmpcounta=\insertframenumber
+%   \progressbar@tmpcountb=\inserttotalframenumber
+%   \progressbar@tmpdim=\progressbar@pbwd
+%   \divide\progressbar@tmpdim by 100
+%   \multiply\progressbar@tmpdim by \progressbar@tmpcounta
+%   \divide\progressbar@tmpdim by \progressbar@tmpcountb
+%   \multiply\progressbar@tmpdim by 100
+%
+%   \begin{tikzpicture}[very thin]
+%     \draw[fill=nagasakiBlue] (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
+%     \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\progressbar@tmpdim, \progressbar@pbht);
+%   \end{tikzpicture}%
+% }
 
 \addtobeamertemplate{headline} {
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,center,dp=0ex]{nagasakiBlue}%
-    \progressbar@progressbar%
+  %\begin{beamercolorbox}[wd=\paperwidth,ht=1ex,center,dp=0ex]{nagasakiBlue}% Original when progress bar was ok.
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0ex,center,dp=0ex]{nagasakiBlue}%
+    % \progressbar@progressbar% The progresss bar was giving errors during compile so I removed it.
   \end{beamercolorbox}%
 }
 \makeatother

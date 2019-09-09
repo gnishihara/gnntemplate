@@ -9,7 +9,7 @@ output:
     keep_tex: yes
     toc: true
     toc_depth: 2
-    citation_package: natbib
+    citation_package: biblatex
     pandoc_args: [ "--template=report-template.latex" ] 
 documentclass: bxjsarticle
 classoption: "xelatex, ja=standard, openright, oneside"
@@ -21,7 +21,7 @@ fontsize: 12pt
 geometry: a4paper
 link-citations: true
 bibliography: "bibliography.bib"
-biblio-style: jeconunicode
+biblio-style: "authoryear"
 mainfont: "Noto Serif"
 sansfont: "Noto Sans"
 monofont: "Source Code Pro"
