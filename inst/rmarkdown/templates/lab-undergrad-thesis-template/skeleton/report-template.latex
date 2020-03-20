@@ -1,22 +1,45 @@
-\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
-$if(fontfamily)$
-  \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
-$else$
-  \usepackage{lmodern}
-$endif$
+\documentclass[$if(fontsize)$$fontsize$$endif$,$papersize$, xelatex, ja=standard, openright, $if(side)$$side$$endif$]{bxjsarticle}
+\geometry{$papersize$}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage{zxjatype}
+\usepackage{titlesec, titletoc}
+\usepackage{ifxetex,ifluatex}
+\usepackage{mathspec}
+\usepackage{caption}
+
+\captionsetup{labelfont={bf}, labelsep=period}
+
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+
+\setmainfont[]{Noto Serif}
+\setsansfont[]{Noto Sans}
+\setmonofont[Mapping=tex-ansi]{Source Code Pro}
+\setCJKmainfont[]{Noto Serif CJK JP}
+\setCJKsansfont[]{Noto Sans CJK JP}
+\setCJKmonofont[]{Noto Sans Mono CJK JP}
+
 $if(linestretch)$
-  \usepackage{setspace}
-  \setstretch{$linestretch$}
+\usepackage{setspace}
+\setstretch{$linestretch$}
 $endif$
 
+$if(widowpenalty)$
+  \widowpenalty=$widowpenalty$
+$endif$
+$if(clubpenalty)$
+  \clubpenalty=$clubpenalty$
+$endif$
+
+\usepackage{calc}
 \usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{pdflscape}
-\usepackage{float}
 \usepackage[section]{placeins}
+\usepackage{hanging}
+\newcommand{\bhanging}{\begin{hangparas}{1cm}{1}}
+\newcommand{\ehanging}{\end{hangparas}}
 \newcommand{\blandscape}{\begin{landscape}}
 \newcommand{\elandscape}{\end{landscape}}
 \usepackage{array}
@@ -27,147 +50,41 @@ $endif$
     \addtocounter{page}{-1}%
     \newpage}
 
-\makeatletter
-\@ifclasswith{$documentclass$}{twoside}
-  {%
-  \setpagelayout*{bindingoffset=20mm, footskip = 0.1\paperheight, footnotesep=10mm}%
-  }{%
-  \setpagelayout*{footskip = 0.1\paperheight, footnotesep=10mm}
-  }
-\makeatother
-
-\widowpenalty=10000
-\clubpenalty=10000
-
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
-  \usepackage[utf8]{inputenc}
-$if(euro)$
-  \usepackage{eurosym}
-$endif$
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-$if(euro)$
-  \newcommand{\euro}{€}
-$endif$
-$if(mainfont)$
-    \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
-$endif$
-$if(sansfont)$
-    \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
-$endif$
-$if(monofont)$
-    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
-$endif$
-$if(mathfont)$
-    \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
-$endif$
-$if(CJKmainfont)$
-    \usepackage{xeCJK}
-    \setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
-$endif$
-\fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-$if(geometry)$
-  \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
-$endif$
-  \usepackage{hyperref}
+  \usepackage{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+  }{}
+
+
+\usepackage{hyperref}
 $if(colorlinks)$
-  \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 $endif$
 \hypersetup{unicode=true,
 $if(title-meta)$
             pdftitle={$title-meta$},
 $endif$
 $if(author-meta)$
-            pdfauthor={$author-meta$},
+pdfauthor={$author-meta$},
 $endif$
 $if(keywords)$
-            pdfkeywords={$for(keywords)$$keywords$$sep$; $endfor$},
+pdfkeywords={$for(keywords)$$keywords$$sep$; $endfor$},
 $endif$
 $if(colorlinks)$
-            colorlinks=true,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
-            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
+colorlinks=true,
+linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
+citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
+urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
 $else$
-            pdfborder={0 0 0},
+pdfborder={0 0 0},
 $endif$
-            breaklinks=true}
+breaklinks=true}
+
 \urlstyle{same}  % don't use monospace font for urls
-$if(lang)$
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$,$endfor$main=$babel-lang$]{babel}
-$if(babel-newcommands)$
-  $babel-newcommands$
-$endif$
-\else
-  \usepackage{polyglossia}
-  \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$}
-$for(polyglossia-otherlangs)$
-  \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
-$endfor$
-\fi
-$endif$
-$if(natbib)$
-  \usepackage$if(natbiboptions)$[$for(natbiboptions)$$natbiboptions$$sep$,$endfor$]$endif${natbib}
-  \bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
-$endif$
-$if(biblatex)$
-  \usepackage$if(biblio-style)$[style=$biblio-style$]$endif${biblatex}
-$if(biblatexoptions)$\ExecuteBibliographyOptions{$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$}$endif$
-  $for(bibliography)$
-    \addbibresource{$bibliography$}
-  $endfor$
-$endif$
-$if(listings)$
-  \usepackage{listings}
-  \newcommand{\passthrough}[1]{#1}
-$endif$
-$if(lhs)$
-  \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
-$endif$
-$if(highlighting-macros)$
-  $highlighting-macros$
-$endif$
-$if(verbatim-in-note)$
-  \usepackage{fancyvrb}
-  \VerbatimFootnotes % allows verbatim text in footnotes
-$endif$
-$if(tables)$
-  \usepackage{longtable,booktabs}
-$endif$
-$if(graphics)$
-  \usepackage{graphicx,grffile}
-  \makeatletter
-  \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-  \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-  \makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-  \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-$endif$
-$if(links-as-notes)$
-% Make links footnotes instead of hotlinks:
-  \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
-$endif$
-$if(strikeout)$
-  \usepackage[normalem]{ulem}
-  % avoid problems with \sout in headers with hyperref:
-  \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
-$endif$
+
 $if(indent)$
 $else$
 \IfFileExists{parskip.sty}{%
@@ -180,44 +97,92 @@ $endif$
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-$if(numbersections)$
-\setcounter{secnumdepth}{5}
-$else$
-\setcounter{secnumdepth}{0}
-$endif$
-$if(subparagraph)$
-$else$
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-$endif$
-$if(dir)$
-\ifxetex
-  % load bidi as late as possible as it modifies e.g. graphicx
-  $if(latex-dir-rtl)$
-  \usepackage[RTLdocument]{bidi}
-  $else$
-  \usepackage{bidi}
-  $endif$
-\fi
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \TeXXeTstate=1
-  \newcommand{\RL}[1]{\beginR #1\endR}
-  \newcommand{\LR}[1]{\beginL #1\endL}
-  \newenvironment{RTL}{\beginR}{\endR}
-  \newenvironment{LTR}{\beginL}{\endL}
-\fi
-$endif$
+\usepackage{xcolor}
+\definecolor{nagasakiBlue}{HTML}{006fc5} % \nagasaki university school color DIC183
+\definecolor{orange}{rgb}   {0.90,0.60,0.00}
+\definecolor{skyblue}{rgb}  {0.35,0.70,0.90}
+\definecolor{bluegreen}{rgb}{0.00,0.60,0.50}
+\definecolor{yellow}{rgb}   {0.95,0.90,0.25}
+\definecolor{blue}{rgb}     {0.00,0.45,0.70}
+\definecolor{red}{rgb}      {0.80,0.40,0.00}
+\definecolor{purple}{rgb}   {0.80,0.60,0.70}
+\definecolor{grey}{rgb}     {0.8,0.8,0.8}
+\definecolor{darkgrey}{rgb} {0.2,0.2,0.2}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Format header-1 and header-2
+
+\titlespacing*{\section}{0pt}{3ex plus 2ex}{1ex}
+\titlespacing*{\subsection}{0pt}{3ex plus 2ex}{1ex}
+\titlespacing*{\subsubsection}{0pt}{3ex plus 2ex}{1ex}
+
+\titleformat{\section}[hang]{\bfseries}{\large\filright\enspace 第 \thesection 章\enspace}
+{1em}{\Large\bfseries\filright}
+
+% Bibliography heading
+\titleformat{name=\section, numberless}[block]{\filcenter}{}{0em}{\Large\bfseries}
+
+\titleformat{\subsection}[hang]{\bfseries}{\thesubsection}{0.5em}{\bfseries\filright}[{\titlerule[.8pt]}]
+
+\titleformat{\subsubsection}[hang]{\bfseries}{\thesubsubsection}{0.5em}{\bfseries\filright}[\color{darkgrey}{\titlerule[.8pt]}]
+
+
+\titlecontents{section}[1em]%
+{\large}{\contentslabel{3em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{subsection}[3em]%
+{\color{darkgrey}\small}{\contentslabel{3em}}{\hspace*{-3em}}{\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{table}[1em]%
+{}{\contentslabel[表 \thecontentslabel]{3em}}{\hspace*{-3em}}{\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{figure}[1em]%
+{}{\contentslabel[図 \thecontentslabel]{3em}}{\hspace*{-3em}}{\titlerule*[1pc]{.}\contentspage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Use protect on footnotes to avoid problems with footnotes in titles
 \let\rmarkdownfootnote\footnote%
 \def\footnote{\protect\rmarkdownfootnote}
+
+
+$if(listings)$
+  \usepackage{listings}
+  \newcommand{\passthrough}[1]{#1}
+$endif$
+
+$if(lhs)$
+  \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+
+$if(highlighting-macros)$
+  $highlighting-macros$
+$endif$
+
+$if(verbatim-in-note)$
+  \usepackage{fancyvrb}
+  \VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+  \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+$if(strikeout)$
+  \usepackage[normalem]{ulem}
+  % avoid problems with \sout in headers with hyperref:
+  \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
 
 %% Force figure positioning.
 \usepackage{float}
@@ -229,64 +194,224 @@ $endif$
     \endorigfigure
 }
 
-$if(compact-title)$
-%%% Change title format to be more compact
-\usepackage{titling}
+\newcommand{\sectionbreak}{\clearpage}
 
-% Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
+% Offset the left edge by 20 mm.
+\setpagelayout*{bindingoffset=20mm, footskip = 0.1\paperheight, footnotesep=10mm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Biblatex formatting
+% This formatting is in the style of 藻類（学会誌）
+
+\usepackage[style=authoryear,%
+            giveninits=true, uniquename = init,backend=biber,%
+            sortcites,%
+            isbn=false, dashed=false,%
+            maxbibnames=99]{biblatex}%
+\usepackage{xpatch}
+
+$if(bibliography)$
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+
+% Remove parenthesis and quotes from the default authoyear format.
+\DeclareNameAlias{sortname}{family-given}
+\DeclareFieldFormat{biblabeldate}{#1}
+\DeclareFieldFormat*[article]{pages}{{#1}}
+\DeclareFieldFormat*[article]{volume}{{#1\addspace}}
+\DeclareFieldFormat*[article, book, inbook]{title}{{#1\isdot}}
+\DeclareFieldFormat*[article]{journaltitle}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{maintitle}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{booktitle}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{chapter}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{mainsubtitle}{{#1\isdot}}
+% Makesure that the order is Family name, Given name
+\DeclareNameAlias{default}{family-given}
+
+% Make the format look like: journaltitle volume (issue): page1 - page2
+\renewbibmacro*{volume+number+eid}{%
+ \printfield{volume}\printfield[parens]{number}{\addcolon}\setunit{\addcomma\space}\printfield{eid}}
+
+% Remove comma between family name and given name for Japanese
+\renewcommand*{\revsdnamepunct}{\iffieldequalstr{langid}{japanese}{\nopunct\unspace}{\addcomma\space}}
+% Remove periods between family name and given name for Japanese
+\renewcommand*{\bibnamedelimd}{\iffieldequalstr{langid}{japanese}{\nopunct}{ }}
+
+% Change the name delimiters for Japanese
+\DeclareDelimFormat{finalnamedelim}{%
+   \ifnumgreater{\value{liststop}}{2}{\iffieldequalstr{langid}{japanese}{\unspace・}{\addspace{\&}\space}}{\iffieldequalstr{langid}{japanese}{\unspace・}{\addspace{\&}\space}}}
+\DeclareDelimFormat{multinamedelim}{\iffieldequalstr{langid}{japanese}{\unspace・}{, \space}}
+
+% Do not use In: for articles and Japanese references
+\renewbibmacro{in:}{%
+  \ifboolexpr{%
+     test {\ifentrytype{article}}%
+     or
+     test {\iffieldequalstr{langid}{japanese}}%
+  }{}{\printtext{\bibstring{in}\intitlepunct}}%
 }
 
-\setlength{\droptitle}{-2em}
-$endif$
+% Remove some fields from books and inbooks
+\AtEveryBibitem{%
+\ifentrytype{book}{
+    \clearfield{url}%
+    \clearfield{urldate}%
+    \clearfield{review}%
+    \clearfield{series}%
+    \clearfield{volume}%
+    \clearfield{number}%
+}{}
+\ifentrytype{inbook}{
+    \clearfield{url}%
+    \clearfield{urldate}%
+    \clearfield{review}%
+    \clearfield{series}%
+    \clearfield{volume}%
+    \clearfield{number}%
+}{}
+}
 
-$if(title)$
-  \title{$title$}
-  $if(compact-title)$
-  \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-  $endif$
-$else$
-  \title{}
-  $if(compact-title)$
-  \pretitle{\vspace{\droptitle}}
-  \posttitle{}
-  $endif$
-$endif$
-$if(subtitle)$
-\subtitle{$subtitle$}
-$endif$
-$if(author)$
-  \author{$for(author)$$author$$sep$ \\ $endfor$}
-  $if(compact-title)$
-  \preauthor{\centering\large\emph}
-  \postauthor{\par}
-  $endif$
-$else$
-  \author{}
-  $if(compact-title)$
-  \preauthor{}\postauthor{}
-  $endif$
-$endif$
-$if(date)$
-  $if(compact-title)$
-  \predate{\centering\large\emph}
-  \postdate{\par}
-  $endif$
-  \date{$date$}
-$else$
-  \date{}
-  $if(compact-title)$
-  \predate{}\postdate{}
-  $endif$
-$endif$
+% Use 編 instead of ed for Japanese texts
+% Use ら instead of etal for Japanese texts
+\DefineBibliographyStrings{english}{%
+editor    = {{\iffieldequalstr{langid}{japanese}{編}{ed}}},%
+editors   = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
+byeditor  = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
+andothers = {{\iffieldequalstr{langid}{japanese}{\unspace ら}{et al\adddot}}}%
+}
+
+% Probably not needed but maybe useful in the future.
+\DeclareBibliographyCategory{JPN}
+\AtEveryCitekey{\iffieldequalstr{langid}{japanese}{\addtocategory{JPN}{\thefield{entrykey}}}{}}
+
+% This ensures that the given-name is not abbreviated for Japanese references.
+\DeclareNameFormat{family-given}{%
+  \iffieldequalstr{langid}{japanese}{
+    \usebibmacro{name:family-given}
+     {\namepartfamily}
+     {\namepartgiven}
+     {\namepartprefix}
+     {\namepartsuffix}
+    }%
+    {\ifgiveninits{%
+    \usebibmacro{name:family-given}
+     {\namepartfamily}
+     {\namepartgiveni}
+     {\namepartprefix}
+     {\namepartsuffix}}
+   {\usebibmacro{name:family-given}
+     {\namepartfamily}
+     {\namepartgiven}
+     {\namepartprefix}
+     {\namepartsuffix}}}%
+ \usebibmacro{name:andothers}}
+
+% Remove parenthesis from year
+\xpatchbibmacro{date+extradate}{%
+\printtext[parens]%
+}{%
+  % \setunit*{\addperiod\space}%
+  \printtext%
+}{}{}
+
+% Use a period to separate publisher and location for Japanese
+\renewbibmacro*{publisher+location+date}{%
+    \printlist{publisher}%
+    \setunit*{\iffieldequalstr{langid}{japanese}{\adddotspace}{\addcomma\addspace}}
+    \printlist{location}%
+    \usebibmacro{date}%
+    \newunit}
+
+% This macro cleans up the way parenthesis are used for the editor.
+\renewbibmacro{byeditor+others}{
+   \ifnameundef{editor}
+     {}
+     {
+      \iffieldequalstr{langid}{japanese}{%
+      \printnames[byeditor]{editor}%
+      \printtext{\unspace（}%
+      \usebibmacro{byeditor+othersstrg}%
+      \printtext{）}
+      }%
+      {%
+      \printnames[byeditor]{editor}%
+      \printtext{\addspace(}%
+      \usebibmacro{byeditor+othersstrg}%
+      \setunit*{\adddot}
+      \printtext{)}}
+      \setunit*{\addspace}
+      \clearname{editor}}%
+   \usebibmacro{byeditorx}%
+   \usebibmacro{bytranslator+others}}
+
+\xpatchbibdriver{inbook}
+  {\usebibmacro{in:}%
+    \usebibmacro{bybookauthor}%
+    \newunit\newblock
+    \usebibmacro{maintitle+booktitle}%
+    \newunit\newblock
+    \usebibmacro{byeditor+others}}
+  {\usebibmacro{in:}%
+   \usebibmacro{bybookauthor}%
+   \newunit\newblock
+   \usebibmacro{byeditor+others}%
+   \nopunct
+   \usebibmacro{maintitle+booktitle}%
+   }
+  {}{}
+
+\xpatchbibdriver{inbook}
+  {\usebibmacro{publisher+location+date}%
+    \newunit\newblock
+    \usebibmacro{chapter+pages}%
+    \newunit\newblock}
+  {\usebibmacro{chapter+pages}%
+    \newunit\newblock
+    \usebibmacro{publisher+location+date}%
+    \newunit\newblock}
+  {}{}
+
+
+\setlength{\bibhang}{3em}% the hanging indent
+\setlength{\bibitemsep}{3ex}% the separation b/w basic items
+
+
+% End of biblatex formatting.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\makeatletter
+\newcommand\ackname{$ack-title$}
+   \newenvironment{acknowledgements}{%
+         \begin{center}%
+           {\bfseries \vspace{3ex plus 2ex}\Large\ackname\vspace{-.5ex}\vspace{1ex}}%
+         \end{center}}%
+\makeatother
+
+
+
+%
+\renewcommand{\abstractname}{$abstract-title$}
+\renewenvironment{abstract}{%
+\begin{center}
+\bfseries \vspace{3ex plus 2ex}\Large\abstractname\vspace{-0.5ex}\vspace{1ex}
+\end{center}
+\hfill\begin{minipage}{0.95\textwidth}
+\rule{\textwidth}{1pt}}
+{\par\noindent\rule{\textwidth}{1pt}\end{minipage}}
+%
+
 
 $for(header-includes)$
 $header-includes$
 $endfor$
+
 
 \begin{document}
 $if(title)$
@@ -307,45 +432,61 @@ $if(title)$
 \end{titlepage}
 \clearpage
 $endif$
+
 $if(abstract)$
 \begin{abstract}
 $abstract$
 \end{abstract}
+\clearpage
+$endif$
+
+$if(acknowledgements)$
+\begin{acknowledgements}
+$acknowledgements$
+\end{acknowledgements}
+\clearpage
 $endif$
 
 $for(include-before)$
 $include-before$
-
 $endfor$
+
+% Check for table of contents %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 $if(toc)$
 {
 $if(colorlinks)$
 \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
 $endif$
 \setcounter{tocdepth}{$toc-depth$}
+\begingroup
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}[\vspace{1ex}]
 \tableofcontents
+\endgroup
 }
+\clearpage
 $endif$
+% Check for list of tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 $if(lot)$
+\begingroup
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}[\vspace{1ex}]
 \listoftables
+\endgroup
+\clearpage
 $endif$
-$if(lof)$
-\listoffigures
-$endif$
-$body$
 
-$if(natbib)$
-  $if(bibliography)$
-    $if(biblio-title)$
-      $if(book-class)$
-        \renewcommand\bibname{$biblio-title$}
-      $else$
-        \renewcommand\refname{$biblio-title$}
-      $endif$
-    $endif$
-    \bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
-  $endif$
+% Check for list of figures %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$if(lof)$
+\begingroup
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}[\vspace{1ex}]
+\listoffigures
+\endgroup
+\clearpage
 $endif$
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+$body$
 
 $if(biblatex)$
   \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$

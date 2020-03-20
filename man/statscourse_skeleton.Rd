@@ -4,8 +4,13 @@
 \alias{statscourse_skeleton}
 \title{Create statscourse project directory}
 \usage{
-statscourse_skeleton(path, assignment = "01", number = "45110000",
-  yourname = "名 姓", thedate = "2014-04-01")
+statscourse_skeleton(
+  path,
+  assignment = "01",
+  number = "45110000",
+  yourname = "名 姓",
+  thedate = "2014-04-01"
+)
 }
 \arguments{
 \item{path}{The path of the created project.}

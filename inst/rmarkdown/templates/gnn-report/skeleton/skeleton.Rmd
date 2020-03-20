@@ -20,7 +20,7 @@ output:
     toc: true
     toc_depth: 3
 documentclass: bxjsarticle
-classoption: "xelatex, ja=standard, english"
+classoption: "xelatex, ja=standard, english, jadriver=minimal"
 fig_crop: yes
 fig_caption: yes
 lot: no
