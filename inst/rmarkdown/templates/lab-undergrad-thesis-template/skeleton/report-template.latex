@@ -200,13 +200,15 @@ $endif$
 \setpagelayout*{bindingoffset=20mm, footskip = 0.1\paperheight, footnotesep=10mm}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Biblatex formatting
 % This formatting is in the style of 藻類（学会誌）
 
 \usepackage[style=authoryear,%
-            giveninits=true, uniquename = init,backend=biber,%
-            sortcites,%
+            giveninits=true,
+            uniquename = false, uniquelist = false, backend=biber,%
+            sortcites=true, minnames=1, maxnames=2,%
             isbn=false, dashed=false,%
             maxbibnames=99]{biblatex}%
 \usepackage{xpatch}
@@ -241,9 +243,19 @@ $endif$
 \renewcommand*{\bibnamedelimd}{\iffieldequalstr{langid}{japanese}{\nopunct}{ }}
 
 % Change the name delimiters for Japanese
-\DeclareDelimFormat{finalnamedelim}{%
-   \ifnumgreater{\value{liststop}}{2}{\iffieldequalstr{langid}{japanese}{\unspace・}{\addspace{\&}\space}}{\iffieldequalstr{langid}{japanese}{\unspace・}{\addspace{\&}\space}}}
-\DeclareDelimFormat{multinamedelim}{\iffieldequalstr{langid}{japanese}{\unspace・}{, \space}}
+ \DeclareDelimFormat{finalnamedelim}{%
+    \ifnumgreater{\value{liststop}}{2}%
+    {\iffieldequalstr{langid}{japanese}{\unspace}{\finalandcomma}}{}%
+    \addspace\bibstring{and}\space}%
+%
+\DeclareDelimFormat{multinamedelim}{\iffieldequalstr{langid}{japanese}{\unspace・}{\addcomma\space}}
+%
+% \DeclareDelimFormat{multinamedelim}{\addcomma\space}
+% \DeclareDelimFormat{finalnamedelim}{%
+%    \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+%    \addspace\bibstring{and}\space}
+% \DeclareDelimFormat{revsdnamedelim}{}
+% \DeclareDelimFormat{andothersdelim}{\addspace}
 
 % Do not use In: for articles and Japanese references
 \renewbibmacro{in:}{%
@@ -256,6 +268,10 @@ $endif$
 
 % Remove some fields from books and inbooks
 \AtEveryBibitem{%
+\ifentrytype{article}{
+    \clearfield{url}%
+    \clearfield{urldate}%
+}{}
 \ifentrytype{book}{
     \clearfield{url}%
     \clearfield{urldate}%
@@ -280,7 +296,8 @@ $endif$
 editor    = {{\iffieldequalstr{langid}{japanese}{編}{ed}}},%
 editors   = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
 byeditor  = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
-andothers = {{\iffieldequalstr{langid}{japanese}{\unspace ら}{et al\adddot}}}%
+andothers = {{\iffieldequalstr{langid}{japanese}{\unspace ら}{et al\adddot}}},
+and       = {{\iffieldequalstr{langid}{japanese}{・}{{\&}}}},%
 }
 
 % Probably not needed but maybe useful in the future.
@@ -290,22 +307,22 @@ andothers = {{\iffieldequalstr{langid}{japanese}{\unspace ら}{et al\adddot}}}%
 % This ensures that the given-name is not abbreviated for Japanese references.
 \DeclareNameFormat{family-given}{%
   \iffieldequalstr{langid}{japanese}{
-    \usebibmacro{name:family-given}
-     {\namepartfamily}
-     {\namepartgiven}
-     {\namepartprefix}
-     {\namepartsuffix}
+    \usebibmacro{name:family-given}%
+     {\namepartfamily}%
+     {\namepartgiven}%
+     {\namepartprefix}%
+     {\namepartsuffix}%
     }%
     {\ifgiveninits{%
-    \usebibmacro{name:family-given}
-     {\namepartfamily}
-     {\namepartgiveni}
-     {\namepartprefix}
-     {\namepartsuffix}}
-   {\usebibmacro{name:family-given}
-     {\namepartfamily}
-     {\namepartgiven}
-     {\namepartprefix}
+    \usebibmacro{name:family-given}%
+     {\namepartfamily}%
+     {\namepartgiveni}%
+     {\namepartprefix}%
+     {\namepartsuffix}}%
+   {\usebibmacro{name:family-given}%
+     {\namepartfamily}%
+     {\namepartgiven}%
+     {\namepartprefix}%
      {\namepartsuffix}}}%
  \usebibmacro{name:andothers}}
 
@@ -381,7 +398,6 @@ andothers = {{\iffieldequalstr{langid}{japanese}{\unspace ら}{et al\adddot}}}%
 
 % End of biblatex formatting.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \pagenumbering{roman}
 \setcounter{page}{1}
