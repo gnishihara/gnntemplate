@@ -1,0 +1,564 @@
+\documentclass[$if(fontsize)$$fontsize$$endif$,$papersize$, xelatex, ja=standard, openright, $if(side)$$side$$endif$]{bxjsarticle}
+\geometry{$papersize$}
+% Offset the left edge by 20 mm.
+
+\setpagelayout{bindingoffset=20mm, vscale=0.9}
+
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage{mwe}
+\usepackage{zxjatype}
+\usepackage[explicit]{titlesec}
+\usepackage{titletoc}
+\usepackage{ifxetex,ifluatex}
+\usepackage{mathspec}
+\usepackage{caption, subfig}
+
+\captionsetup{labelfont={bf}, labelsep=period}
+
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+
+\setmainfont[]{Noto Serif}
+\setsansfont[]{Noto Sans}
+\setmonofont[Mapping=tex-ansi]{Source Code Pro}
+\setCJKmainfont[]{Noto Serif CJK JP}
+\setCJKsansfont[]{Noto Sans CJK JP}
+\setCJKmonofont[]{Noto Sans Mono CJK JP}
+
+$if(linestretch)$
+\usepackage{setspace}
+\setstretch{$linestretch$}
+$endif$
+
+$if(widowpenalty)$
+  \widowpenalty=$widowpenalty$
+$endif$
+$if(clubpenalty)$
+  \clubpenalty=$clubpenalty$
+$endif$
+
+\usepackage{calc}
+\usepackage{amssymb,amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage[section]{placeins}
+\usepackage{hanging}
+\newcommand{\bhanging}{\begin{hangparas}{1cm}{1}}
+\newcommand{\ehanging}{\end{hangparas}}
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+\usepackage{array}
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+  \usepackage{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+  }{}
+
+
+\usepackage{hyperref}
+$if(colorlinks)$
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+$endif$
+\hypersetup{unicode=true,
+$if(title-meta)$
+            pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+pdfauthor={$author-meta$},
+$endif$
+$if(keywords)$
+pdfkeywords={$for(keywords)$$keywords$$sep$; $endfor$},
+$endif$
+$if(colorlinks)$
+colorlinks=true,
+linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
+citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
+urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
+$else$
+pdfborder={0 0 0},
+$endif$
+breaklinks=true}
+
+\urlstyle{same}  % don't use monospace font for urls
+
+$if(indent)$
+$else$
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+$endif$
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{xcolor}
+\definecolor{nagasakiBlue}{HTML}{006fc5} % \nagasaki university school color DIC183
+\definecolor{orange}{rgb}   {0.90,0.60,0.00}
+\definecolor{skyblue}{rgb}  {0.35,0.70,0.90}
+\definecolor{bluegreen}{rgb}{0.00,0.60,0.50}
+\definecolor{yellow}{rgb}   {0.95,0.90,0.25}
+\definecolor{blue}{rgb}     {0.00,0.45,0.70}
+\definecolor{red}{rgb}      {0.80,0.40,0.00}
+\definecolor{purple}{rgb}   {0.80,0.60,0.70}
+\definecolor{grey}{rgb}     {0.8,0.8,0.8}
+\definecolor{darkgrey}{rgb} {0.2,0.2,0.2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Format figurename and tablename
+\renewcommand{\figurename}{図\,}
+\renewcommand{\tablename}{表\,}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Format section, subsection, and subsubsection
+
+\titlespacing*{\section}{0pt}{3ex plus 2ex}{1ex}
+\titlespacing*{name=\section,numberless}{0pt}{3ex plus 2ex}{10ex}
+\titlespacing*{\subsection}{0pt}{3ex plus 2ex}{1ex}
+\titlespacing*{\subsubsection}{0pt}{3ex plus 2ex}{1ex}
+
+
+\titleformat{\section}{\bfseries}{}{0em}{\colorbox{grey}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\large\enspace 第 \thesection 章\enspace \Large\bfseries#1}}}
+\titleformat{name=\section, numberless}{\bfseries}{\filcenter}{0em}{\colorbox{grey}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering\Large\bfseries#1}}}
+
+% Bibliography heading
+
+\titleformat{\subsection}{\bfseries}{\thesubsection}{0.5em}{\bfseries\filright#1}[{\titlerule[.8pt]}]
+
+\titleformat{\subsubsection}{\bfseries}{\thesubsubsection}{0.5em}{\bfseries\filright#1}
+
+
+\titlecontents{section}[0em]%
+{\large}{\thecontentslabel\hspace{2em}}{\hspace*{0em}}{\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{subsection}[6em]%
+{\color{darkgrey}\small}{\contentslabel{2em}}{\hspace*{0em}}{\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{table}[3em]%
+{}{\contentslabel[表 \thecontentslabel]{3em}}{\hspace*{-0em}}{\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{figure}[3em]%
+{}{\contentslabel[図 \thecontentslabel]{3em}}{\hspace*{-0em}}{\titlerule*[1pc]{.}\contentspage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+
+$if(listings)$
+  \usepackage{listings}
+  \newcommand{\passthrough}[1]{#1}
+$endif$
+
+$if(lhs)$
+  \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+
+$if(highlighting-macros)$
+  $highlighting-macros$
+$endif$
+
+$if(verbatim-in-note)$
+  \usepackage{fancyvrb}
+  \VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+  \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+$if(strikeout)$
+  \usepackage[normalem]{ulem}
+  % avoid problems with \sout in headers with hyperref:
+  \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+
+%% Force figure positioning.
+\usepackage{float}
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[H]
+} {
+    \endorigfigure
+}
+
+\newcommand{\sectionbreak}{\clearpage}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Biblatex formatting
+% This formatting is in the style of 藻類（学会誌）
+
+\usepackage[style=authoryear,%
+            giveninits=true,
+            uniquename = false, uniquelist = false, backend=biber,%
+            sortcites=true, minnames=1, maxnames=2,%
+            isbn=false, dashed=false,%
+            maxbibnames=99]{biblatex}%
+\usepackage{xpatch}
+
+$if(bibliography)$
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+
+% Remove parenthesis and quotes from the default authoyear format.
+\DeclareNameAlias{sortname}{family-given}
+\DeclareFieldFormat{biblabeldate}{#1}
+\DeclareFieldFormat*[article]{pages}{{#1}}
+\DeclareFieldFormat*[article]{volume}{{#1\addspace}}
+\DeclareFieldFormat*[article, book, inbook]{title}{{#1\isdot}}
+\DeclareFieldFormat*[article]{journaltitle}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{maintitle}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{booktitle}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{chapter}{{#1\isdot}}
+\DeclareFieldFormat*[book, inbook]{mainsubtitle}{{#1\isdot}}
+% Makesure that the order is Family name, Given name
+\DeclareNameAlias{default}{family-given}
+
+% Make the format look like: journaltitle volume (issue): page1 - page2
+\renewbibmacro*{volume+number+eid}{%
+ \printfield{volume}\printfield[parens]{number}{\addcolon}\setunit{\addcomma\space}\printfield{eid}}
+
+% Remove comma between family name and given name for Japanese
+\renewcommand*{\revsdnamepunct}{\iffieldequalstr{langid}{japanese}{\nopunct\unspace}{\addcomma\space}}
+% Remove periods between family name and given name for Japanese
+\renewcommand*{\bibnamedelimd}{\iffieldequalstr{langid}{japanese}{\nopunct}{ }}
+
+% Change the name delimiters for Japanese
+ \DeclareDelimFormat{finalnamedelim}{%
+    \ifnumgreater{\value{liststop}}{2}%
+    {\iffieldequalstr{langid}{japanese}{\unspace}{\finalandcomma}}{}%
+    \addspace\bibstring{and}\space}%
+%
+\DeclareDelimFormat{multinamedelim}{\iffieldequalstr{langid}{japanese}{\unspace・}{\addcomma\space}}
+%
+% \DeclareDelimFormat{multinamedelim}{\addcomma\space}
+% \DeclareDelimFormat{finalnamedelim}{%
+%    \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+%    \addspace\bibstring{and}\space}
+% \DeclareDelimFormat{revsdnamedelim}{}
+% \DeclareDelimFormat{andothersdelim}{\addspace}
+
+% Do not use In: for articles and Japanese references
+\renewbibmacro{in:}{%
+  \ifboolexpr{%
+     test {\ifentrytype{article}}%
+     or
+     test {\iffieldequalstr{langid}{japanese}}%
+  }{}{\printtext{\bibstring{in}\intitlepunct}}%
+}
+
+% Remove some fields from books and inbooks
+\AtEveryBibitem{%
+\ifentrytype{article}{
+    \clearfield{url}%
+    \clearfield{urldate}%
+}{}
+\ifentrytype{book}{
+    \clearfield{url}%
+    \clearfield{urldate}%
+    \clearfield{review}%
+    \clearfield{series}%
+    \clearfield{volume}%
+    \clearfield{number}%
+}{}
+\ifentrytype{inbook}{
+    \clearfield{url}%
+    \clearfield{urldate}%
+    \clearfield{review}%
+    \clearfield{series}%
+    \clearfield{volume}%
+    \clearfield{number}%
+}{}
+}
+
+% Use 編 instead of ed for Japanese texts
+% Use ら instead of etal for Japanese texts
+\DefineBibliographyStrings{english}{%
+editor    = {{\iffieldequalstr{langid}{japanese}{編}{ed}}},%
+editors   = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
+byeditor  = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
+andothers = {{\iffieldequalstr{langid}{japanese}{\unspace ら}{et al\adddot}}},
+and       = {{\iffieldequalstr{langid}{japanese}{・}{{\&}}}},%
+}
+
+% Probably not needed but maybe useful in the future.
+\DeclareBibliographyCategory{JPN}
+\AtEveryCitekey{\iffieldequalstr{langid}{japanese}{\addtocategory{JPN}{\thefield{entrykey}}}{}}
+
+% This ensures that the given-name is not abbreviated for Japanese references.
+\DeclareNameFormat{family-given}{%
+  \iffieldequalstr{langid}{japanese}{
+    \usebibmacro{name:family-given}%
+     {\namepartfamily}%
+     {\namepartgiven}%
+     {\namepartprefix}%
+     {\namepartsuffix}%
+    }%
+    {\ifgiveninits{%
+    \usebibmacro{name:family-given}%
+     {\namepartfamily}%
+     {\namepartgiveni}%
+     {\namepartprefix}%
+     {\namepartsuffix}}%
+   {\usebibmacro{name:family-given}%
+     {\namepartfamily}%
+     {\namepartgiven}%
+     {\namepartprefix}%
+     {\namepartsuffix}}}%
+ \usebibmacro{name:andothers}}
+
+% Remove parenthesis from year
+\xpatchbibmacro{date+extradate}{%
+\printtext[parens]%
+}{%
+  % \setunit*{\addperiod\space}%
+  \printtext%
+}{}{}
+
+% Use a period to separate publisher and location for Japanese
+\renewbibmacro*{publisher+location+date}{%
+    \printlist{publisher}%
+    \setunit*{\iffieldequalstr{langid}{japanese}{\adddotspace}{\addcomma\addspace}}
+    \printlist{location}%
+    \usebibmacro{date}%
+    \newunit}
+
+% This macro cleans up the way parenthesis are used for the editor.
+\renewbibmacro{byeditor+others}{
+   \ifnameundef{editor}
+     {}
+     {
+      \iffieldequalstr{langid}{japanese}{%
+      \printnames[byeditor]{editor}%
+      \printtext{\unspace（}%
+      \usebibmacro{byeditor+othersstrg}%
+      \printtext{）}
+      }%
+      {%
+      \printnames[byeditor]{editor}%
+      \printtext{\addspace(}%
+      \usebibmacro{byeditor+othersstrg}%
+      \setunit*{\adddot}
+      \printtext{)}}
+      \setunit*{\addspace}
+      \clearname{editor}}%
+   \usebibmacro{byeditorx}%
+   \usebibmacro{bytranslator+others}}
+
+\xpatchbibdriver{inbook}
+  {\usebibmacro{in:}%
+    \usebibmacro{bybookauthor}%
+    \newunit\newblock
+    \usebibmacro{maintitle+booktitle}%
+    \newunit\newblock
+    \usebibmacro{byeditor+others}}
+  {\usebibmacro{in:}%
+   \usebibmacro{bybookauthor}%
+   \newunit\newblock
+   \usebibmacro{byeditor+others}%
+   \nopunct
+   \usebibmacro{maintitle+booktitle}%
+   }
+  {}{}
+
+\xpatchbibdriver{inbook}
+  {\usebibmacro{publisher+location+date}%
+    \newunit\newblock
+    \usebibmacro{chapter+pages}%
+    \newunit\newblock}
+  {\usebibmacro{chapter+pages}%
+    \newunit\newblock
+    \usebibmacro{publisher+location+date}%
+    \newunit\newblock}
+  {}{}
+
+
+\setlength{\bibhang}{3em}% the hanging indent
+\setlength{\bibitemsep}{3ex}% the separation b/w basic items
+
+
+% End of biblatex formatting.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\patchcmd{\thebibliography}{\section*{\bibname}}{\section*{{\bibname}}}{}{}
+
+\makeatletter
+\newcommand\ackname{$ack-title$}
+   \newenvironment{acknowledgements}{%
+         \begin{center}%
+           {\bfseries \vspace{3ex plus 2ex}\Large\ackname\vspace{-.5ex}\vspace{10ex}}%
+         \end{center}}%
+\makeatother
+
+
+%
+\renewcommand{\abstractname}{$abstract-title$}
+\renewenvironment{abstract}{%
+\begin{center}
+\bfseries \vspace{3ex plus 2ex}\Large\abstractname\vspace{-0.5ex}\vspace{10ex}
+\end{center}
+\hfill\begin{minipage}{0.95\textwidth}
+\rule{\textwidth}{1pt}}
+{\par\noindent\rule{\textwidth}{1pt}\end{minipage}}
+%
+
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+
+\begin{document}
+
+$if(title)$
+\begin{titlepage}
+
+\begin{center}
+{\Huge {$title$}}
+\vspace{20ex}
+\includegraphics[width=0.20\textwidth]{nagasaki-univ-logo.png}\\
+\vspace{20ex}
+{\small{博士前期課程2年}}\\
+\vspace{1ex}%
+{\LARGE{$author$}\vspace{-0.5ex}}\\
+\vspace{1ex}%
+$if(studentid)$
+{\small{学生番号\hspace{1em}$studentid$}}\\
+$endif$
+
+\vfill
+\begin{tabular}[t]{l}%
+主査\hspace{2em}$supervisor$\\
+$for(cosupervisor)$
+副査\hspace{2em}$cosupervisor$$sep$\\
+$endfor$
+\end{tabular}
+\end{center}
+
+\vfill
+
+\begin{center}
+\normalsize{長崎大学大学院水産・環境科学総合研究科} \\
+\normalsize{水産学専攻・海洋生産システム学} \\
+\normalsize{水圏植物生態学研究室} \\
+\vspace{2ex}
+\normalsize{$date$} \\
+\end{center}
+
+\end{titlepage}
+\clearpage
+$endif$
+
+
+\newgeometry{vscale=0.83, headheight = 10pt, footskip = 0.03367\paperheight, %
+             bindingoffset=20mm,
+             headsep=\footskip-\topskip, includeheadfoot, hscale=0.76,hmarginratio=1:1,vmarginratio=1:1}
+
+\ifstrequal{$side$}{twoside}{\blankpage}{}
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+\addcontentsline{toc}{section}{要旨}
+\clearpage
+$endif$
+
+$if(acknowledgements)$
+\begin{acknowledgements}
+$acknowledgements$
+\addcontentsline{toc}{section}{謝辞}
+\end{acknowledgements}
+\clearpage
+$endif$
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+% Check for table of contents %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$if(toc)$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+$endif$
+\setcounter{tocdepth}{$toc-depth$}
+\begingroup
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}
+\titlespacing*{\section}{0ex}{0ex}{10ex}
+\tableofcontents
+\addcontentsline{toc}{section}{目次}
+\endgroup
+}
+\clearpage
+$endif$
+% Check for list of tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$if(lot)$
+\begingroup
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}
+\titlespacing*{\section}{0ex}{0ex}{10ex}
+\listoftables
+\addcontentsline{toc}{section}{表目次}
+\endgroup
+\clearpage
+$endif$
+
+% Check for list of figures %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$if(lof)$
+\begingroup
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}
+\titlespacing*{\section}{0ex}{0ex}{10ex}
+\listoffigures
+\addcontentsline{toc}{section}{図目次}
+\endgroup
+\clearpage
+$endif$
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+$body$
+
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+\clearpage
+\blankpage
+
+\end{document}

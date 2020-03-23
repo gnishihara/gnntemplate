@@ -1,0 +1,99 @@
+% Setup Japanese Fonts
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Sans CJK JP}
+\setCJKmonofont{Noto Sans Mono CJK JP}
+\setCJKsansfont{Noto Sans CJK JP}
+\setromanfont[Mapping=tex-text]{Noto Serif}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Noto Sans}
+\setmonofont[Scale=MatchLowercase]{Source Code Pro}
+\XeTeXlinebreaklocale "ja"
+\pagenumbering{gobble} % Prevent pagenmumbers
+
+% Please add the following required packages to your document preamble:
+\usepackage{tikz}
+\usetikzlibrary{matrix, positioning}
+
+\centering{\huge\textbf{学生単独出張理由書}}
+
+\vspace{5em}
+
+\begin{tikzpicture}[outer sep=0pt]
+\node (A1) [minimum width = 3cm, minimum height = 3cm, draw, align=center]
+{出張者 \\ 所属・学年・氏名};
+\node (A2) [minimum width = 3cm, minimum height = 2cm, draw, below=0cm of A1.south west, anchor=north west, align=center]
+{出張日程};
+\node (A3) [minimum width = 3cm, minimum height = 2cm, draw, below=0cm of A2.south west, anchor=north west, align=center]
+{用務先\\（所在地）};
+\node (A4) [minimum width = 3cm, minimum height = 5cm, draw, below=0cm of A3.south west, anchor=north west, align=center]
+{用務内容};
+\node (A5) [minimum width = 3cm, minimum height = 2cm, draw, below=0cm of A4.south west, anchor=north west, align=center]
+{依頼者が帯同\\できない理由};
+\node (A6) [minimum width = 3cm, minimum height = 2cm, draw, below=0cm of A5.south west, anchor=north west, align=center]
+{安全の確保};
+\node (A7) [minimum width = 3cm, minimum height = 2cm, draw, below=0cm of A6.south west, anchor=north west, align=center]
+{緊急連絡先};
+
+\node (B1a)  [minimum width = 13cm, minimum height = 1.5cm, draw, right=0cm of A1.north east, anchor=north west] {
+  \begin{minipage}{12cm}
+  所属・専攻・学年等 \\
+  `r SHOZOKU`
+  \end{minipage}};
+
+\node (B1b) [minimum width = 13cm, minimum height = 1.5cm, draw, below=0cm of B1a.south west, anchor=north west] {
+  \begin{minipage}{12cm}
+  `r NAME`
+  \end{minipage}};
+
+\node (B2) [minimum width = 13cm, minimum height = 2cm, draw, below=0cm of B1b, align=center] {
+  \begin{minipage}{12cm}
+  `r DATE`
+  \end{minipage}};
+
+\node (B3) [minimum width = 13cm, minimum height = 2cm, draw, below=0cm of B2, align=center] {
+  \begin{minipage}{12cm}
+  `r YOUMUSAKI`
+  \end{minipage}};
+
+\node (B4) [minimum width = 13cm, minimum height = 3cm, draw, below=0cm of B3, align=left] {
+  \begin{minipage}{12cm}
+  `r YOUMU`
+  \end{minipage}};
+
+\node (B5) [minimum width = 13cm, minimum height = 2cm, draw, below=0cm of B4, align=left] {
+  \begin{minipage} {12cm}
+  \leftskip 3em
+  \parindent -3em
+  注意）出張目的が大学（専攻、学科・コース、指導教員）の目標・計画に基づいたものである場合に限り、旅費として大学の経費（大学運営経費・寄附金等）を支出できます。
+  \end{minipage}};
+
+\node (B6) [minimum width = 13cm, minimum height = 2cm, draw, below=0cm of B5, align=left] {
+  \begin{minipage} {12cm}
+  `r REASON`
+  \end{minipage}};
+
+\node (B7) [minimum width = 13cm, minimum height = 2cm, draw, below=0cm of B6, align=left] {
+  \begin{minipage} {12cm }
+  `r SAFETY`
+  \end{minipage}};
+
+\node (B8) [minimum width = 13cm, minimum height = 2cm, draw, below=0cm of B7, align=left] {
+  \begin{minipage}{12cm}
+  `r CALLS`
+  \end{minipage}};
+
+\node (D1) [minimum width = 16cm, minimum height = 5cm, below=0cm of A7.south west, anchor = north west]{
+  \begin{minipage}{15 cm}
+  \vspace{1em}
+  \parindent=1em
+  上記のとおり、上記の学生の単独での出張が必要ですので届け出いたします。\\ \vspace{1em}
+
+  出張者はこの用務を遂行するために必要な知識、能力を有する優秀な学生であり、教員の指導を受けずに用務を果たすことができます。
+
+  またこのことにより本人の修学に支障が生じることはありません。\\
+  \vspace{2em}
+  \parindent=20em
+  \indent 担当教員氏名・職名\\
+  \indent Gregory N. Nishihara・准教授　　　　　　印 \\
+  \end{minipage}};
+
+\end{tikzpicture}

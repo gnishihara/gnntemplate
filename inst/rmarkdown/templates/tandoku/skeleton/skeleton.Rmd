@@ -1,0 +1,14 @@
+---
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    pandoc_args: [ "--template=tandoku-template.latex" ] 
+documentclass: bxjsarticle
+classoption: "xelatex, ja=standard, openright, oneside"
+fontsize: 11pt
+geometry: a4paper, top=20mm, bottom=20mm, right=30mm, left=30mm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
