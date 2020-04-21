@@ -9,6 +9,8 @@ $endif$
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
+\usepackage{fontawesome}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % See: https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
 % If, \ifxetex is true, then 0\ifxetex becomes 01, otherwise it is 00,
@@ -17,18 +19,16 @@ $endif$
 % against 0. So if either are true, then the next two lines don't run.
 % If both are false, then it means taht pdftex is the engine and the
 % next two lines will run.
+
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex is the engine do the following
   \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
   \usepackage[utf8]{inputenc}
-  $if(euro)$
-    \usepackage{eurosym}
-  $endif$
   \else % if luatex or xelatex do the following
     \ifxetex
       % \usepackage{mathspec}
       \usefonttheme{professionalfonts}
       \usepackage{unicode-math}
-      \setmathfont{Asana Math}
+      \setmathfont{Asana-Math.otf}
       % \setmathfont{Fira Math}
     \else
       \usepackage{fontspec}
@@ -49,10 +49,6 @@ $endif$
   $if(monofont)$
       \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
   $endif$
-
-  % $if(mathfont)$
-  %   \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
-  % $endif$
 
   $if(CJKmainfont)$
       \usepackage{xeCJK}
@@ -337,9 +333,10 @@ layout,
 
 % Itemization
 % This requires unicode-math!
-\setbeamertemplate{itemize item}{●}
-\setbeamertemplate{itemize subitem}{○}
-\setbeamertemplate{itemize subsubitem}{●}
+\setbeamertemplate{itemize item}{\raise1.0pt\hbox{\tiny\faCircle}}
+\setbeamertemplate{itemize subitem}{\raise1.0pt\hbox{\tiny\faCircleO}}
+\setbeamertemplate{itemize subsubitem}{\hbox{\tiny\faSquareO}}
+
 \setlength{\parskip}{0.5em}
 
 % General

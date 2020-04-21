@@ -1,9 +1,5 @@
 ---
-title: |
-       | The enhancement effect of continuous phosphorus 
-       | supply on the growth rate of 
-       | *Sargassum macrocarpum* in a low phosphorus environment
-       |
+title: The enhancement effect of continuous phosphorus supply on the growth rate of *Sargassum macrocarpum* in a low phosphorus environment
 author: "Yukio Inoue"
 studentid: 53115005
 supervisor: "Gregory N. Nishihara"
@@ -23,7 +19,7 @@ fig_crop: true
 fig_caption: true
 lot: true # list of tables true/false
 lof: true # list of figures true/false
-fontsize: 11pt # fontsize, can be 10, 11, or 12
+fontsize: 10pt # fontsize, can be 10, 11, or 12
 papersize: a4paper # papersize
 linestretch: 1.25 # linespacing
 widowpenalty: 10000 

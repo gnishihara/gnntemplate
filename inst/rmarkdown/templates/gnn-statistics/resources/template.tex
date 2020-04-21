@@ -25,10 +25,10 @@ $endif$
   $endif$
   \else % if luatex or xelatex do the following
     \ifxetex
-      % \usepackage{mathspec}
+      \usepackage{mathspec}
       \usefonttheme{professionalfonts}
-      \usepackage{unicode-math}
-      \setmathfont{Asana Math}
+      % \usepackage{unicode-math}
+      % \setmathfont{Asana Math}
       % \setmathfont{Fira Math}
     \else
       \usepackage{fontspec}
@@ -339,6 +339,8 @@ hyperref,
 hanging,
 multirow,
 layout,
+textgreek,
+textcomp
 }
 \usepackage[absolute, overlay, showboxes]{textpos}
 
