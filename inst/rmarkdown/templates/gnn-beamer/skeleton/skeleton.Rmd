@@ -28,7 +28,41 @@ output:
 ---
 
 ```{r setup, include=FALSE, cache = FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.height = 3, fig.width = 3, out.width = "40%")
+knitr::opts_chunk$set(echo = TRUE, fig.height = 3, fig.width = 3, out.width = "40%", dev = "tikz")
+
+options(tinytex.latexmk.emulation = FALSE, width = 80)
+options(knitr.kable.NA = '', texi2dvi = "xetex")
+options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
+Sys.setlocale("LC_TIME", "en_US.UTF-8") # アメリカ英語に設定
+
+
+options(
+  tikzXelatexPackages = c(
+    "\\usepackage{tikz}\n",
+    "\\usepackage{fontawesome}\n",
+    "\\usepackage[active,tightpage,xetex]{preview}\n",
+    "\\usepackage{mathspec,xunicode}\n",
+    "\\PreviewEnvironment{pgfpicture}\n",
+    "\\setlength\\PreviewBorder{0pt}\n",
+    "\\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}\n",
+    "\\setmainfont[]{Noto Serif}\n",
+    "\\setsansfont[]{Noto Sans}\n",
+    "\\setmonofont[Mapping=tex-ansi]{Source Code Pro}\n",
+    "\\usepackage{xeCJK}\n",
+    "\\setCJKmainfont[]{Noto Serif CJK JP}\n",
+    "\\usepackage{microtype}\n",
+    "\\UseMicrotypeSet[protrusion]{basicmath}\n",
+    "\\usepackage{textgreek}\n",
+    "\\usepackage{textcomp}\n",
+    "\\usetikzlibrary{matrix, tikzmark, fit, shapes,}\n",
+    "\\usetikzlibrary{arrows, arrows.meta, shapes.geometric, positioning}\n",
+    "\\usetikzlibrary{calc, intersections,through}\n",
+    "\\usetikzlibrary{decorations.text, decorations.markings}\n"
+  ),
+  tikzDefaultEngine="xetex",
+  tikzMetricPackages = c("\\usetikzpackage{calc}"))
+
+
 library(tidyverse)
 ```
 

@@ -9,6 +9,8 @@ $endif$
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
+\usepackage{fontawesome}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % See: https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
 % If, \ifxetex is true, then 0\ifxetex becomes 01, otherwise it is 00,
@@ -25,10 +27,10 @@ $endif$
   $endif$
   \else % if luatex or xelatex do the following
     \ifxetex
-      \usepackage{mathspec}
+      % \usepackage{mathspec}
       \usefonttheme{professionalfonts}
-      % \usepackage{unicode-math}
-      % \setmathfont{Asana Math}
+      \usepackage{unicode-math}
+      \setmathfont{Asana-Math.otf}
       % \setmathfont{Fira Math}
     \else
       \usepackage{fontspec}
@@ -210,7 +212,7 @@ $endif$
 \definecolor{grey}{rgb}     {0.8,0.8,0.8}
 \definecolor{darkgray}{rgb} {0.2,0.2,0.2}
 \definecolor{darkgrey}{rgb} {0.2,0.2,0.2}
-
+\definecolor{white}{rgb}{1,1,1}
 % Prevent slide breaks in the middle of a paragraph:
 \widowpenalties 1 10000
 \raggedbottom
@@ -370,9 +372,10 @@ textcomp
 
 % Itemization
 % This requires unicode-math!
-\setbeamertemplate{itemize item}{$$●$$}
-\setbeamertemplate{itemize subitem}{$$●$$}
-\setbeamertemplate{itemize subsubitem}{$$●$$}
+\setbeamertemplate{itemize item}{\raise1.0pt\hbox{\tiny\faCircle}}
+\setbeamertemplate{itemize subitem}{\raise1.0pt\hbox{\tiny\faCircleO}}
+\setbeamertemplate{itemize subsubitem}{\hbox{\tiny\faSquareO}}
+
 \setlength{\parskip}{0.5em}
 
 % General
