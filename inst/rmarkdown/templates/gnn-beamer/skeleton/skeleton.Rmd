@@ -28,20 +28,42 @@ output:
 ---
 
 ```{r setup, include=FALSE, cache = FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.height = 3, fig.width = 3, out.width = "40%", dev = "tikz")
-
-options(tinytex.latexmk.emulation = FALSE, width = 80)
-options(knitr.kable.NA = '', texi2dvi = "xetex")
+library(tidyverse)
+library(tikzDevice)
+library(lemon)
+library(knitr)
+library(kableExtra)
+options(knitr.kable.NA = '', texi2dvi = "xetex", width = 120)
 options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
-Sys.setlocale("LC_TIME", "en_US.UTF-8") # アメリカ英語に設定
+Sys.setlocale("LC_TIME", "en_US.UTF-8") # This is to set the server time locate to en_US.UTF-8
 
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+
+knitr::opts_chunk$set(echo = TRUE, fig.height = 3, fig.width = 3, 
+                      fig.align = "center",
+                      out.width = "75%",
+                      dev = "tikz",
+                      warning = FALSE,
+                      message = FALSE)
+
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
 
 options(
   tikzXelatexPackages = c(
     "\\usepackage{tikz}\n",
-    "\\usepackage{fontawesome}\n",
     "\\usepackage[active,tightpage,xetex]{preview}\n",
-    "\\usepackage{mathspec,xunicode}\n",
+    "\\usepackage{xunicode}\n",
+    "\\usepackage{amssymb, amsmath}\n",
+    "\\usepackage{unicode-math}\n",
+    "\\setmathfont{Asana-Math.otf}\n",
     "\\PreviewEnvironment{pgfpicture}\n",
     "\\setlength\\PreviewBorder{0pt}\n",
     "\\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}\n",
@@ -61,9 +83,6 @@ options(
   ),
   tikzDefaultEngine="xetex",
   tikzMetricPackages = c("\\usetikzpackage{calc}"))
-
-
-library(tidyverse)
 ```
 
 # Block Quote

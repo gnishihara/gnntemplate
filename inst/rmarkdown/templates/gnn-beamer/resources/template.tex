@@ -60,16 +60,48 @@ $endif$
   \fi
 
 
+
 % To make handouts or not.
 $if(handout)$
+\makeatletter
+\defbeamertemplate{note page}{plain2}{
+  \vskip 2.0em
+  \nointerlineskip
+  \begin{minipage}{\linewidth} % this is an addition
+  \setlength{\parskip}{0.8em}
+  \insertnote
+  \end{minipage}               % this is an addition
+}
+\makeatother
 \setbeameroption{show notes}
-\setbeamertemplate{note page}[plain]
+\setbeamertemplate{note page}[plain2]
+\setbeamerfont{note page}{size=\footnotesize}
+\addtobeamertemplate{note page}{\setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}}{}
+
+\makeatletter
+\def\beamer@setupnote{%
+  \gdef\beamer@notesactions{%
+    \beamer@outsideframenote{%
+      \beamer@atbeginnote%
+      \beamer@notes%
+      \ifx\beamer@noteitems\@empty\else
+      \begin{itemize}\itemsep=0pt\parskip=0pt%
+        \beamer@noteitems%
+      \end{itemize}%
+      \fi%
+      \beamer@atendnote%
+    }%
+    \gdef\beamer@notesactions{}%
+  }
+% Space between paragraphs on notes page
+% \addtobeamertemplate{note page}{\setlength{\parskip}{12pt}}
+}
+\makeatother
 $else$
 \setbeameroption{hide notes}
 \setbeamertemplate{note page}[plain]
 $endif$
-% Space between paragraphs on notes page
-\addtobeamertemplate{note page}{\setlength{\parskip}{12pt}}
+
 %%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -438,12 +470,14 @@ layout,
 	\begin{tikzpicture}[remember picture, overlay]
 	  \node[xshift = 4cm, yshift = -1cm] at (current page.center) {\pgfuseimage{titlelogo}};
 	\end{tikzpicture}
-	\begin{minipage}[b][\paperheight]{\textwidth}
 
+	\begin{minipage}[b][\paperheight]{\textwidth}
+  \raggedright
 	\vspace*{20mm}
 	\ifx\insertsubtitle\@empty%
 	\else%
 		{\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\parskip0pt\par}%
+		\vspace*{3mm}
 	\fi%
 	\ifx\insertsubtitle\@empty%
 	\else%
