@@ -6,9 +6,9 @@ $else$
 \usepackage{lmodern}
 $endif$
 
-\usepackage{amssymb,amsmath,xfrac}
+\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
+% \usepackage{fixltx2e} % provides \textsubscript
 \usepackage{fontawesome}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -19,10 +19,12 @@ $endif$
 % against 0. So if either are true, then the next two lines don't run.
 % If both are false, then it means taht pdftex is the engine and the
 % next two lines will run.
-
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex is the engine do the following
   \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
   \usepackage[utf8]{inputenc}
+  $if(euro)$
+    \usepackage{eurosym}
+  $endif$
   \else % if luatex or xelatex do the following
     \ifxetex
       % \usepackage{mathspec}
@@ -33,7 +35,7 @@ $endif$
     \else
       \usepackage{fontspec}
     \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchUppercase} % Was MatchLowercase but this is better for scaling the size of the inline math fonts.
   $for(fontfamilies)$
     \newfontfamily{$fontfamilies.name$}[$fontfamilies.options$]{$fontfamilies.font$}
   $endfor$
@@ -50,6 +52,10 @@ $endif$
       \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
   $endif$
 
+  % $if(mathfont)$
+  %   \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+  % $endif$
+
   $if(CJKmainfont)$
       \usepackage{xeCJK}
       \XeTeXlinebreaklocale "ja"
@@ -58,7 +64,6 @@ $endif$
       \setCJKmonofont[$for(CJKmonooptions)$$CJKmonooptions$$sep$,$endfor$]{$CJKmonofont$}
   $endif$
   \fi
-
 
 
 % To make handouts or not.
@@ -336,12 +341,14 @@ hyperref,
 hanging,
 multirow,
 layout,
+textgreek,
+textcomp
 }
 \usepackage[absolute, overlay, showboxes]{textpos}
 
 % TIKZ packages
 \usetikzlibrary{matrix, tikzmark, fit, shapes,}
-\usetikzlibrary{arrows, positioning}
+\usetikzlibrary{arrows, arrows.meta, shapes.geometric, positioning}
 \usetikzlibrary{calc, intersections,through}
 \usetikzlibrary{decorations.text, decorations.markings}
 
@@ -460,17 +467,17 @@ layout,
  \put(\LenToUnit{\paperwidth},\LenToUnit{0\paperheight}){#1}%
  }}%
 
-\pgfdeclareimage[width=0.35\paperwidth]{titlelogo}{logo/ape_background.pdf}
+% \pgfdeclareimage[width=0.35\paperwidth]{titlelogo}{logo/ape_background.pdf}
 
 % Structure of the titlepage
 \def\maketitle{\ifbeamer@inframe\titlepage\else\frame[plain]{\titlepage}\fi}
 \def\titlepage{\usebeamertemplate{title page}}
+
 \setbeamertemplate{title page} {
 
 	\begin{tikzpicture}[remember picture, overlay]
-	  \node[xshift = 4cm, yshift = -1cm] at (current page.center) {\pgfuseimage{titlelogo}};
+	  \node[xshift = 3.5cm, yshift = -1cm] at (current page.center) {\(P(H|D)=\frac{P(D|H)P(H)}{P(D)}\)};
 	\end{tikzpicture}
-
 	\begin{minipage}[b][\paperheight]{\textwidth}
   \raggedright
 	\vspace*{20mm}
@@ -535,36 +542,35 @@ layout,
 \setbeamertemplate{headline}{} % Remove header navigation bar
 \setbeamertemplate{navigation symbols}{}
 \makeatletter
-% \def\progressbar@progressbar{} % the progress bar
-% \newcount\progressbar@tmpcounta% auxiliary counter
-% \newcount\progressbar@tmpcountb% auxiliary counter
-% \newdimen\progressbar@pbht %progressbar height
-% \newdimen\progressbar@pbwd %progressbar width
-% \newdimen\progressbar@tmpdim % auxiliary dimension
-%
-% \progressbar@pbwd=\paperwidth
-% \progressbar@pbht=1.25ex
-%
-% % the progress bar
-% \def\progressbar@progressbar{%
-%   \progressbar@tmpcounta=\insertframenumber
-%   \progressbar@tmpcountb=\inserttotalframenumber
-%   \progressbar@tmpdim=\progressbar@pbwd
-%   \divide\progressbar@tmpdim by 100
-%   \multiply\progressbar@tmpdim by \progressbar@tmpcounta
-%   \divide\progressbar@tmpdim by \progressbar@tmpcountb
-%   \multiply\progressbar@tmpdim by 100
-%
-%   \begin{tikzpicture}[very thin]
-%     \draw[fill=nagasakiBlue] (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
-%     \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\progressbar@tmpdim, \progressbar@pbht);
-%   \end{tikzpicture}%
-% }
+\def\progressbar@progressbar{} % the progress bar
+\newcount\progressbar@tmpcounta% auxiliary counter
+\newcount\progressbar@tmpcountb% auxiliary counter
+\newdimen\progressbar@pbht %progressbar height
+\newdimen\progressbar@pbwd %progressbar width
+\newdimen\progressbar@tmpdim % auxiliary dimension
+
+\progressbar@pbwd=\paperwidth
+\progressbar@pbht=1.25ex
+
+% the progress bar
+\def\progressbar@progressbar{%
+  \progressbar@tmpcounta=\insertframenumber
+  \progressbar@tmpcountb=\inserttotalframenumber
+  \progressbar@tmpdim=\progressbar@pbwd
+  \divide\progressbar@tmpdim by 100
+  \multiply\progressbar@tmpdim by \progressbar@tmpcounta
+  \divide\progressbar@tmpdim by \progressbar@tmpcountb
+  \multiply\progressbar@tmpdim by 100
+
+  \begin{tikzpicture}[very thin]
+    \draw[fill=nagasakiBlue] (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
+    \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\progressbar@tmpdim, \progressbar@pbht);
+  \end{tikzpicture}%
+}
 
 \addtobeamertemplate{headline} {
-  %\begin{beamercolorbox}[wd=\paperwidth,ht=1ex,center,dp=0ex]{nagasakiBlue}% Original when progress bar was ok.
-  \begin{beamercolorbox}[wd=\paperwidth,ht=0ex,center,dp=0ex]{nagasakiBlue}%
-    % \progressbar@progressbar% The progresss bar was giving errors during compile so I removed it.
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,center,dp=0ex]{nagasakiBlue}%
+    \progressbar@progressbar%
   \end{beamercolorbox}%
 }
 \makeatother

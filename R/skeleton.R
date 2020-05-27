@@ -13,7 +13,7 @@
 statscourse_skeleton <- function(path,
                                  assignment = "01",
                                  number = "45110000",
-                                 yourname = "名 姓",
+                                 yourname = "Last First",
                                  thedate = "2014-04-01") {
   # collect inputs
 
@@ -30,7 +30,7 @@ statscourse_skeleton <- function(path,
   n = gsub("homework_x", repl, f)
   file.rename(f, n)
   f = file.path(n)
-  xfun::gsub_file(f, "TITLE", paste0("小課題 ", assignment))
+  xfun::gsub_file(f, "TITLE", paste0("Assignment ", assignment))
   xfun::gsub_file(f, "NAME", yourname)
   xfun::gsub_file(f, "DATE", thedate)
   TRUE

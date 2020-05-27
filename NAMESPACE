@@ -2,3 +2,4 @@
 
 export(gnn_beamer)
 export(gnn_statistics)
+export(gnn_tokuron)
