@@ -5,6 +5,7 @@ $if(fontfamily)$
 $else$
 \usepackage{lmodern}
 $endif$
+\usepackage{mathtools}
 
 \usepackage{amssymb,amsmath,xfrac}
 \usepackage{ifxetex,ifluatex}
@@ -53,6 +54,8 @@ $endif$
   $if(CJKmainfont)$
       \usepackage{xeCJK}
       \XeTeXlinebreaklocale "ja"
+            \xeCJKsetup{CJKmath=true}
+
       \setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
       \setCJKsansfont[$for(CJKsansoptions)$$CJKsansoptions$$sep$,$endfor$]{$CJKsansfont$}
       \setCJKmonofont[$for(CJKmonooptions)$$CJKmonooptions$$sep$,$endfor$]{$CJKmonofont$}

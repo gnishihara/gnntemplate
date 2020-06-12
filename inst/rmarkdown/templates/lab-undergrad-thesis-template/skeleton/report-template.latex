@@ -5,19 +5,28 @@
 \usepackage{zxjatype}
 \usepackage{titlesec, titletoc}
 \usepackage{ifxetex,ifluatex}
-\usepackage{mathspec}
+\usepackage{calc}
+\usepackage{amssymb,amsmath}
+\usepackage{booktabs}
+\usepackage{unicode-math, xunicode}
 \usepackage{caption}
+\usepackage{textgreek}
 
 \captionsetup{labelfont={bf}, labelsep=period}
 
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 
-\setmainfont[]{Noto Serif}
-\setsansfont[]{Noto Sans}
+\setmainfont[Path=/usr/share/fonts/Noto/]{NotoSerif-Regular.ttf}[ItalicFont = NotoSerif-Italic.ttf,
+  BoldFont = NotoSerif-Bold.ttf,
+  BoldItalicFont = Notoserif-BoldItalic.ttf]
+\setsansfont[Path=/usr/share/fonts/Noto/]{NotoSans-Regular.ttf}[ItalicFont = NotoSans-Italic.ttf,
+  BoldFont = NotoSans-Bold.ttf,
+  BoldItalicFont = NotoSans-BoldItalic.ttf]
 \setmonofont[Mapping=tex-ansi]{Source Code Pro}
-\setCJKmainfont[]{Noto Serif CJK JP}
-\setCJKsansfont[]{Noto Sans CJK JP}
-\setCJKmonofont[]{Noto Sans Mono CJK JP}
+\setmathfont{XITS Math}
+\setCJKmainfont[AutoFakeBold=true]{Noto Serif CJK JP}
+\setCJKsansfont[AutoFakeBold=true]{Noto Sans CJK JP}
+\setCJKmonofont[AutoFakeBold=true]{Noto Sans Mono CJK JP}
 
 $if(linestretch)$
 \usepackage{setspace}
@@ -31,9 +40,6 @@ $if(clubpenalty)$
   \clubpenalty=$clubpenalty$
 $endif$
 
-\usepackage{calc}
-\usepackage{amssymb,amsmath}
-\usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{pdflscape}
 \usepackage[section]{placeins}

@@ -8,7 +8,7 @@ statscourse_skeleton(
   path,
   assignment = "01",
   number = "45110000",
-  yourname = "名 姓",
+  yourname = "Last First",
   thedate = "2014-04-01"
 )
 }

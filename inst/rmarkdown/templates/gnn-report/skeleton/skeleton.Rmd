@@ -10,7 +10,9 @@ header-includes:
   - \usepackage{float}
   - \usepackage[section]{placeins}
   - \newcommand{\blandscape}{\begin{landscape}}
-  - \newcommand{\elandscape}{\end{landscape}}  
+  - \newcommand{\elandscape}{\end{landscape}}
+  - \usepackage{textgreek}
+  
 output: 
   bookdown::pdf_document2:
     latex_engine: xelatex
@@ -32,26 +34,70 @@ bibliography:
 mainfont: "Noto Serif"
 sansfont: "Noto Sans"
 monofont: "Source Code Pro"
+mathfont: "XITS Math"
 CJKmainfont: "Noto Serif CJK JP"
 CJKsansfont: "Noto Sans CJK JP"
 ---
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache = FALSE,
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+knitr::opts_chunk$set(cache = TRUE,
                       echo = FALSE,
+                      results = "hidden",
                       fig.width = 2*80/25.4,
                       fig.height = 2*80/25.4,
-                      out.width = "80%", 
-                      out.height = "70%",
+                      out.width = "60%", 
+                      out.height = "60%",
                       fig.align = "center", 
+                      fit.pos = "H!",
                       warning = FALSE, 
                       message = FALSE,
                       error = FALSE, 
-                      autodep = TRUE)
-options(knitr.kable.NA = '', texi2dvi = "xetex")
+                      autodep = TRUE,
+                      size = "scriptsize")
+options(knitr.kable.NA = '', texi2dvi = "xetex", width = 120)
 options(kableExtra.latex.load_packages = FALSE, tidyverse.quiet = TRUE)
-Sys.setlocale("LC_TIME", "en_US.UTF-8") # アメリカ英語に設定
+rstan::rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+
+Sys.setlocale("LC_TIME", "en_US.UTF-8") # This is to set the server time locate to en_US.UTF-8
+```
+
+```{r, include = FALSE}
+library(tikzDevice)
+library(magick)
+library(tinytex)
+library(lemon)
+
+options(tikzXelatexPackages = c(
+  "\\usepackage{xeCJK}\n",
+  "\\usepackage{tikz}\n",
+  "\\usepackage[active,tightpage,xetex]{preview}\n",
+  "\\usepackage{unicode-math,xunicode}\n",
+  "\\usepackage{microtype}\n",
+  "\\PreviewEnvironment{pgfpicture}\n",
+  "\\setlength\\PreviewBorder{0pt}\n",
+  "\\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}\n",
+  "\\setmainfont[]{Noto Sans}\n",
+  "\\setsansfont[]{Noto Sans}\n",
+  "\\setmonofont[Mapping=tex-ansi]{Source Code Pro}\n",
+  "\\setCJKmainfont[]{Noto Sans CJK JP}\n",
+  "\\usepackage{microtype}\n",
+  "\\UseMicrotypeSet[protrusion]{basicmath}\n",
+  "\\usepackage{textgreek}\n",
+  "\\usetikzlibrary{matrix, tikzmark, fit, shapes,}\n",
+  "\\usetikzlibrary{arrows, arrows.meta, shapes.geometric, positioning}\n",
+  "\\usetikzlibrary{calc, intersections,through}\n",
+  "\\usetikzlibrary{decorations.text, decorations.markings}\n"
+  ),
+  tikzDefaultEngine="xetex",
+  tikzMetricPackages = c("\\usetikzpackage{calc}"))
+
 ```
 
 classoption の english を外すと，**Fig.** と **Table** は **図**と**表**にかわります。
