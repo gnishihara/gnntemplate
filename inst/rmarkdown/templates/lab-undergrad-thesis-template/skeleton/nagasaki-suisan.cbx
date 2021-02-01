@@ -1,0 +1,24 @@
+%% ---------------------------------------------------------------
+%% nagasaki-suisan --- A biblatex implementation of the Nagasaki-suisan
+%%   bibliography style -- Still a work in progress...
+%% Modified after biblatex-science
+%% Maintained by Greg Nishihara
+%% E-mail: greg@nagasaki-u.ac.jp
+%% ---------------------------------------------------------------
+%%
+
+\ProvidesFile{nagasaki-suisan.cbx}[2018/10/18 v1.2 biblatex citation style]
+
+\RequireCitationStyle{numeric-comp}
+
+\ExecuteBibliographyOptions{sorting = none}
+
+\DeclareFieldFormat{labelnumber}{{#1}}
+
+\renewcommand*\bibleftbracket{%
+  (% )
+}
+\renewcommand*\bibrightbracket{% (
+)%
+  \midsentence
+}

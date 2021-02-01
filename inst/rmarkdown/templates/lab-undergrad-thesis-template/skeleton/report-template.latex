@@ -1,20 +1,32 @@
 \documentclass[$if(fontsize)$$fontsize$$endif$,$papersize$, xelatex, ja=standard, openright, $if(side)$$side$$endif$]{bxjsarticle}
-\geometry{$papersize$}
+\geometry{$papersize$, left=20mm, bottom=35mm}
+% Offset the left edge by 20 mm.
+% 2020 Jun 12 Modified
+
+%\setpagelayout{bindingoffset=20mm, vscale=0.9}
+
 \usepackage{xeCJK}
-\usepackage{graphicx}
 \usepackage{zxjatype}
-\usepackage{titlesec, titletoc}
-\usepackage{ifxetex,ifluatex}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{mwe}
+\usepackage[explicit]{titlesec}
+\usepackage{titletoc}
 \usepackage{calc}
-\usepackage{amssymb,amsmath}
+\usepackage{amsmath, amssymb}
 \usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{ifxetex,ifluatex}
+% \usepackage{mathspec,xunicode}
 \usepackage{unicode-math, xunicode}
-\usepackage{caption}
+
 \usepackage{textgreek}
+\usepackage{caption, subfig}
 
 \captionsetup{labelfont={bf}, labelsep=period}
 
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+
 
 \setmainfont[Path=/usr/share/fonts/Noto/]{NotoSerif-Regular.ttf}[ItalicFont = NotoSerif-Italic.ttf,
   BoldFont = NotoSerif-Bold.ttf,
@@ -28,6 +40,7 @@
 \setCJKsansfont[AutoFakeBold=true]{Noto Sans CJK JP}
 \setCJKmonofont[AutoFakeBold=true]{Noto Sans Mono CJK JP}
 
+
 $if(linestretch)$
 \usepackage{setspace}
 \setstretch{$linestretch$}
@@ -40,7 +53,7 @@ $if(clubpenalty)$
   \clubpenalty=$clubpenalty$
 $endif$
 
-\usepackage{longtable}
+
 \usepackage{pdflscape}
 \usepackage[section]{placeins}
 \usepackage{hanging}
@@ -115,36 +128,42 @@ $endif$
 \definecolor{grey}{rgb}     {0.8,0.8,0.8}
 \definecolor{darkgrey}{rgb} {0.2,0.2,0.2}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Format figurename and tablename
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Table\,}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Format header-1 and header-2
+% Format section, subsection, and subsubsection
 
 \titlespacing*{\section}{0pt}{3ex plus 2ex}{1ex}
+\titlespacing*{name=\section,numberless}{0pt}{3ex plus 2ex}{10ex}
 \titlespacing*{\subsection}{0pt}{3ex plus 2ex}{1ex}
 \titlespacing*{\subsubsection}{0pt}{3ex plus 2ex}{1ex}
 
-\titleformat{\section}[hang]{\bfseries}{\large\filright\enspace 第 \thesection 章\enspace}
-{1em}{\Large\bfseries\filright}
+
+%\titleformat{\section}                {\sffamily\bfseries}{\filcenter}{0em}{\colorbox{white}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering\Large\bfseries#1}}}
+
+\titleformat{\section}{\sffamily\bfseries}{}{0em}{\colorbox{white}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering\Large\bfseries#1}}}
+
+
+\titleformat{\subsection}{\sffamily\bfseries}{}{0em}{\filright#1}[{\titlerule[.8pt]}]
+
+\titleformat{\subsubsection}{\sffamily\bfseries}{}{0em}{\filright#1}
 
 % Bibliography heading
-\titleformat{name=\section, numberless}[block]{\filcenter}{}{0em}{\Large\bfseries}
 
-\titleformat{\subsection}[hang]{\bfseries}{\thesubsection}{0.5em}{\bfseries\filright}[{\titlerule[.8pt]}]
+\titlecontents{section}[0em]%
+{\large}{\thecontentslabel\hspace{2em}}{\hspace*{0em}}{\titlerule*[1pc]{.}\contentspage}
 
-\titleformat{\subsubsection}[hang]{\bfseries}{\thesubsubsection}{0.5em}{\bfseries\filright}[\color{darkgrey}{\titlerule[.8pt]}]
+\titlecontents{subsection}[6em]%
+{\color{darkgrey}\small}{\contentslabel{2em}}{\hspace*{0em}}{\titlerule*[1pc]{.}\contentspage}
 
+\titlecontents{table}[4em]%
+{}{\contentslabel[Table~\thecontentslabel]{4em}}{\hspace*{-0em}}{\titlerule*[1pc]{.}\contentspage}
 
-\titlecontents{section}[1em]%
-{\large}{\contentslabel{3em}}{}{\titlerule*[1pc]{.}\contentspage}
-
-\titlecontents{subsection}[3em]%
-{\color{darkgrey}\small}{\contentslabel{3em}}{\hspace*{-3em}}{\titlerule*[1pc]{.}\contentspage}
-
-\titlecontents{table}[1em]%
-{}{\contentslabel[表 \thecontentslabel]{3em}}{\hspace*{-3em}}{\titlerule*[1pc]{.}\contentspage}
-
-\titlecontents{figure}[1em]%
-{}{\contentslabel[図 \thecontentslabel]{3em}}{\hspace*{-3em}}{\titlerule*[1pc]{.}\contentspage}
+\titlecontents{figure}[4em]%
+{}{\contentslabel[Fig.\,\thecontentslabel]{4em}}{\hspace*{-0em}}{\titlerule*[1pc]{.}\contentspage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Use protect on footnotes to avoid problems with footnotes in titles
@@ -202,22 +221,14 @@ $endif$
 
 \newcommand{\sectionbreak}{\clearpage}
 
-% Offset the left edge by 20 mm.
-\setpagelayout*{bindingoffset=20mm, footskip = 0.1\paperheight, footnotesep=10mm}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Biblatex formatting
-% This formatting is in the style of 藻類（学会誌）
+% This formatting is in the style of 長崎大学水産学部
 
-\usepackage[style=authoryear,%
-            giveninits=true,
-            uniquename = false, uniquelist = false, backend=biber,%
-            sortcites=true, minnames=1, maxnames=2,%
-            isbn=false, dashed=false,%
-            maxbibnames=99]{biblatex}%
-\usepackage{xpatch}
+\usepackage[style=nagasaki-suisan, backend = biber, autocite=superscript]{biblatex}
 
 $if(bibliography)$
 $for(bibliography)$
@@ -225,204 +236,24 @@ $for(bibliography)$
 $endfor$
 $endif$
 
-% Remove parenthesis and quotes from the default authoyear format.
-\DeclareNameAlias{sortname}{family-given}
-\DeclareFieldFormat{biblabeldate}{#1}
-\DeclareFieldFormat*[article]{pages}{{#1}}
-\DeclareFieldFormat*[article]{volume}{{#1\addspace}}
-\DeclareFieldFormat*[article, book, inbook]{title}{{#1\isdot}}
-\DeclareFieldFormat*[article]{journaltitle}{{#1\isdot}}
-\DeclareFieldFormat*[book, inbook]{maintitle}{{#1\isdot}}
-\DeclareFieldFormat*[book, inbook]{booktitle}{{#1\isdot}}
-\DeclareFieldFormat*[book, inbook]{chapter}{{#1\isdot}}
-\DeclareFieldFormat*[book, inbook]{mainsubtitle}{{#1\isdot}}
-% Makesure that the order is Family name, Given name
-\DeclareNameAlias{default}{family-given}
-
-% Make the format look like: journaltitle volume (issue): page1 - page2
-\renewbibmacro*{volume+number+eid}{%
- \printfield{volume}\printfield[parens]{number}{\addcolon}\setunit{\addcomma\space}\printfield{eid}}
-
-% Remove comma between family name and given name for Japanese
-\renewcommand*{\revsdnamepunct}{\iffieldequalstr{langid}{japanese}{\nopunct\unspace}{\addcomma\space}}
-% Remove periods between family name and given name for Japanese
-\renewcommand*{\bibnamedelimd}{\iffieldequalstr{langid}{japanese}{\nopunct}{ }}
-
-% Change the name delimiters for Japanese
- \DeclareDelimFormat{finalnamedelim}{%
-    \ifnumgreater{\value{liststop}}{2}%
-    {\iffieldequalstr{langid}{japanese}{\unspace}{\finalandcomma}}{}%
-    \addspace\bibstring{and}\space}%
-%
-\DeclareDelimFormat{multinamedelim}{\iffieldequalstr{langid}{japanese}{\unspace・}{\addcomma\space}}
-%
-% \DeclareDelimFormat{multinamedelim}{\addcomma\space}
-% \DeclareDelimFormat{finalnamedelim}{%
-%    \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
-%    \addspace\bibstring{and}\space}
-% \DeclareDelimFormat{revsdnamedelim}{}
-% \DeclareDelimFormat{andothersdelim}{\addspace}
-
-% Do not use In: for articles and Japanese references
-\renewbibmacro{in:}{%
-  \ifboolexpr{%
-     test {\ifentrytype{article}}%
-     or
-     test {\iffieldequalstr{langid}{japanese}}%
-  }{}{\printtext{\bibstring{in}\intitlepunct}}%
-}
-
-% Remove some fields from books and inbooks
-\AtEveryBibitem{%
-\ifentrytype{article}{
-    \clearfield{url}%
-    \clearfield{urldate}%
-}{}
-\ifentrytype{book}{
-    \clearfield{url}%
-    \clearfield{urldate}%
-    \clearfield{review}%
-    \clearfield{series}%
-    \clearfield{volume}%
-    \clearfield{number}%
-}{}
-\ifentrytype{inbook}{
-    \clearfield{url}%
-    \clearfield{urldate}%
-    \clearfield{review}%
-    \clearfield{series}%
-    \clearfield{volume}%
-    \clearfield{number}%
-}{}
-}
-
-% Use 編 instead of ed for Japanese texts
-% Use ら instead of etal for Japanese texts
-\DefineBibliographyStrings{english}{%
-editor    = {{\iffieldequalstr{langid}{japanese}{編}{ed}}},%
-editors   = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
-byeditor  = {{\iffieldequalstr{langid}{japanese}{編}{eds}}},%
-andothers = {{\iffieldequalstr{langid}{japanese}{\unspace ら}{et al\adddot}}},
-and       = {{\iffieldequalstr{langid}{japanese}{・}{{\&}}}},%
-}
-
-% Probably not needed but maybe useful in the future.
-\DeclareBibliographyCategory{JPN}
-\AtEveryCitekey{\iffieldequalstr{langid}{japanese}{\addtocategory{JPN}{\thefield{entrykey}}}{}}
-
-% This ensures that the given-name is not abbreviated for Japanese references.
-\DeclareNameFormat{family-given}{%
-  \iffieldequalstr{langid}{japanese}{
-    \usebibmacro{name:family-given}%
-     {\namepartfamily}%
-     {\namepartgiven}%
-     {\namepartprefix}%
-     {\namepartsuffix}%
-    }%
-    {\ifgiveninits{%
-    \usebibmacro{name:family-given}%
-     {\namepartfamily}%
-     {\namepartgiveni}%
-     {\namepartprefix}%
-     {\namepartsuffix}}%
-   {\usebibmacro{name:family-given}%
-     {\namepartfamily}%
-     {\namepartgiven}%
-     {\namepartprefix}%
-     {\namepartsuffix}}}%
- \usebibmacro{name:andothers}}
-
-% Remove parenthesis from year
-\xpatchbibmacro{date+extradate}{%
-\printtext[parens]%
-}{%
-  % \setunit*{\addperiod\space}%
-  \printtext%
-}{}{}
-
-% Use a period to separate publisher and location for Japanese
-\renewbibmacro*{publisher+location+date}{%
-    \printlist{publisher}%
-    \setunit*{\iffieldequalstr{langid}{japanese}{\adddotspace}{\addcomma\addspace}}
-    \printlist{location}%
-    \usebibmacro{date}%
-    \newunit}
-
-% This macro cleans up the way parenthesis are used for the editor.
-\renewbibmacro{byeditor+others}{
-   \ifnameundef{editor}
-     {}
-     {
-      \iffieldequalstr{langid}{japanese}{%
-      \printnames[byeditor]{editor}%
-      \printtext{\unspace（}%
-      \usebibmacro{byeditor+othersstrg}%
-      \printtext{）}
-      }%
-      {%
-      \printnames[byeditor]{editor}%
-      \printtext{\addspace(}%
-      \usebibmacro{byeditor+othersstrg}%
-      \setunit*{\adddot}
-      \printtext{)}}
-      \setunit*{\addspace}
-      \clearname{editor}}%
-   \usebibmacro{byeditorx}%
-   \usebibmacro{bytranslator+others}}
-
-\xpatchbibdriver{inbook}
-  {\usebibmacro{in:}%
-    \usebibmacro{bybookauthor}%
-    \newunit\newblock
-    \usebibmacro{maintitle+booktitle}%
-    \newunit\newblock
-    \usebibmacro{byeditor+others}}
-  {\usebibmacro{in:}%
-   \usebibmacro{bybookauthor}%
-   \newunit\newblock
-   \usebibmacro{byeditor+others}%
-   \nopunct
-   \usebibmacro{maintitle+booktitle}%
-   }
-  {}{}
-
-\xpatchbibdriver{inbook}
-  {\usebibmacro{publisher+location+date}%
-    \newunit\newblock
-    \usebibmacro{chapter+pages}%
-    \newunit\newblock}
-  {\usebibmacro{chapter+pages}%
-    \newunit\newblock
-    \usebibmacro{publisher+location+date}%
-    \newunit\newblock}
-  {}{}
-
-
-\setlength{\bibhang}{3em}% the hanging indent
-\setlength{\bibitemsep}{3ex}% the separation b/w basic items
-
-
-% End of biblatex formatting.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\pagenumbering{roman}
-\setcounter{page}{1}
+\patchcmd{\thebibliography}{\section*{\bibname}}{\section*{{\bibname}}}{}{}
 
 \makeatletter
 \newcommand\ackname{$ack-title$}
    \newenvironment{acknowledgements}{%
          \begin{center}%
-           {\bfseries \vspace{3ex plus 2ex}\Large\ackname\vspace{-.5ex}\vspace{1ex}}%
+           {\bfseries \vspace{3ex plus 2ex}\Large\ackname\vspace{-.5ex}\vspace{10ex}}%
          \end{center}}%
 \makeatother
-
 
 
 %
 \renewcommand{\abstractname}{$abstract-title$}
 \renewenvironment{abstract}{%
 \begin{center}
-\bfseries \vspace{3ex plus 2ex}\Large\abstractname\vspace{-0.5ex}\vspace{1ex}
+\bfseries \vspace{3ex plus 2ex}\Large\abstractname\vspace{-0.5ex}\vspace{10ex}
 \end{center}
 \hfill\begin{minipage}{0.95\textwidth}
 \rule{\textwidth}{1pt}}
@@ -436,35 +267,67 @@ $endfor$
 
 
 \begin{document}
+
 $if(title)$
 \begin{titlepage}
-\vspace*{3cm}
+
 \begin{center}
-\Huge {$title$}
-\end{center}
-\vspace{2cm}
-\begin{center}
-\LARGE {$author$} \\
+{\Huge {$title$}}
+\vspace{20ex}
+\includegraphics[width=0.20\textwidth]{nagasaki-univ-logo.png}\\
+\vspace{20ex}
+{\small{卒業研究論文}}\\
+\vspace{1ex}%
+{\LARGE{$author$}\vspace{-0.5ex}}\\
+\vspace{1ex}%
+$if(studentid)$
+{\small{学生番号\hspace{1em}$studentid$}}\\
+$endif$
+
 \vfill
-\normalsize{\textit{長崎大学水産学部}} \\
-\normalsize{\textit{水圏植物生態学研究室}} \\ [1cm]
-\vspace{1cm}
+\begin{tabular}[t]{l}%
+指導教員\hspace{2em}$supervisor$\\
+$for(cosupervisor)$
+副査\hspace{2em}$cosupervisor$$sep$\\
+$endfor$
+\end{tabular}
+\end{center}
+
+\vfill
+
+\begin{center}
+\normalsize{長崎大学} \\
+\normalsize{水産学部} \\
+\normalsize{水圏植物生態学研究室} \\
+\vspace{2ex}
 \normalsize{$date$} \\
 \end{center}
+
 \end{titlepage}
 \clearpage
 $endif$
+
+
+\newgeometry{vscale=0.83, headheight = 10pt, footskip = 0.03367\paperheight, %
+             bindingoffset=20mm,
+             headsep=\footskip-\topskip, includeheadfoot, hscale=0.76,hmarginratio=1:1,vmarginratio=1:1}
+
+\ifstrequal{$side$}{twoside}{\blankpage}{}
+\pagenumbering{roman}
+\setcounter{page}{1}
 
 $if(abstract)$
 \begin{abstract}
 $abstract$
 \end{abstract}
+\addcontentsline{toc}{section}{要旨}
 \clearpage
 $endif$
 
 $if(acknowledgements)$
 \begin{acknowledgements}
 $acknowledgements$
+\addcontentsline{toc}{section}{謝辞}
 \end{acknowledgements}
 \clearpage
 $endif$
@@ -481,8 +344,10 @@ $if(colorlinks)$
 $endif$
 \setcounter{tocdepth}{$toc-depth$}
 \begingroup
-\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}[\vspace{1ex}]
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}
+\titlespacing*{\section}{0ex}{0ex}{10ex}
 \tableofcontents
+\addcontentsline{toc}{section}{目次}
 \endgroup
 }
 \clearpage
@@ -490,8 +355,10 @@ $endif$
 % Check for list of tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 $if(lot)$
 \begingroup
-\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}[\vspace{1ex}]
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}
+\titlespacing*{\section}{0ex}{0ex}{10ex}
 \listoftables
+\addcontentsline{toc}{section}{表目次}
 \endgroup
 \clearpage
 $endif$
@@ -499,8 +366,10 @@ $endif$
 % Check for list of figures %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 $if(lof)$
 \begingroup
-\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}[\vspace{1ex}]
+\titleformat{\section}[block]{\vspace{3ex plus 2ex}\Large\bfseries\filcenter\vspace{-.5ex}}{}{}{}
+\titlespacing*{\section}{0ex}{0ex}{10ex}
 \listoffigures
+\addcontentsline{toc}{section}{図目次}
 \endgroup
 \clearpage
 $endif$
@@ -511,7 +380,7 @@ $endif$
 $body$
 
 $if(biblatex)$
-  \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
 $endif$
 
 $for(include-after)$
