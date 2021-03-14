@@ -145,7 +145,7 @@ $endif$
 %\titleformat{\section}                {\sffamily\bfseries}{\filcenter}{0em}{\colorbox{white}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering\Large\bfseries#1}}}
 
 \titleformat{\section}{\sffamily\bfseries}{}{0em}{\colorbox{white}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering\Large\bfseries#1}}}
-
+\titleformat{name=\section,numberless}{\sffamily\bfseries}{}{0em}{\colorbox{white}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering\Large\bfseries#1}}}
 
 \titleformat{\subsection}{\sffamily\bfseries}{}{0em}{\filright#1}[{\titlerule[.8pt]}]
 
@@ -244,7 +244,7 @@ $endif$
 \newcommand\ackname{$ack-title$}
    \newenvironment{acknowledgements}{%
          \begin{center}%
-           {\bfseries \vspace{3ex plus 2ex}\Large\ackname\vspace{-.5ex}\vspace{10ex}}%
+           {\sffamily \bfseries \vspace{3ex plus 2ex}\Large\ackname\vspace{-.5ex}\vspace{10ex}}%
          \end{center}}%
 \makeatother
 
@@ -253,7 +253,7 @@ $endif$
 \renewcommand{\abstractname}{$abstract-title$}
 \renewenvironment{abstract}{%
 \begin{center}
-\bfseries \vspace{3ex plus 2ex}\Large\abstractname\vspace{-0.5ex}\vspace{10ex}
+\sffamily \bfseries \vspace{3ex plus 2ex}\Large\abstractname\vspace{-0.5ex}\vspace{10ex}
 \end{center}
 \hfill\begin{minipage}{0.95\textwidth}
 \rule{\textwidth}{1pt}}
@@ -317,20 +317,25 @@ $endif$
 \setcounter{page}{1}
 
 $if(abstract)$
+\begin{minipage}{0.95\textwidth}
 \begin{abstract}
 $abstract$
 \end{abstract}
+\end{minipage}
 \addcontentsline{toc}{section}{要旨}
 \clearpage
 $endif$
 
 $if(acknowledgements)$
+\begin{minipage}{0.95\textwidth}
 \begin{acknowledgements}
 $acknowledgements$
-\addcontentsline{toc}{section}{謝辞}
 \end{acknowledgements}
+\end{minipage}
+\addcontentsline{toc}{section}{謝辞}
 \clearpage
 $endif$
+
 
 $for(include-before)$
 $include-before$

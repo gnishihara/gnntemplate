@@ -19,6 +19,8 @@ output:
     toc_depth: 2 # 目次の構造
     citation_package: biblatex
     pandoc_args: [ "--template=report-template.latex" ] 
+header-includes:
+  - \renewcommand{\eqref}{\ref}
 fig_crop: true
 fig_caption: true
 lot: true # 表目次 true/false
