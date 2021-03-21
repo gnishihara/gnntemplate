@@ -400,9 +400,12 @@ layout,
 \def\titlepage{\usebeamertemplate{title page}}
 \setbeamertemplate{title page} {
 
+
+  $if(logo)$
 	\begin{tikzpicture}[remember picture, overlay]
 	  \node[xshift = 4cm, yshift = -1cm] at (current page.center) {\pgfuseimage{titlelogo}};
 	\end{tikzpicture}
+  $endif$
 
 	\begin{minipage}[b][\paperheight]{\textwidth}
   \raggedright

@@ -13,7 +13,8 @@ short-institute: "OMST"
 department: "Organization for Marine Science and Technology" # Institute must be defined
 fontsize: 14pt
 classoption: [ "aspectratio = 1610" ]
-handout: true
+logo: true
+handout: false
 output: 
    gnntemplate::gnn_beamer
 header-includes:
@@ -25,7 +26,7 @@ header-includes:
 ```{r setup, include=FALSE, cache = FALSE}
 library(tidyverse)
 library(lubridate)
-library(tikzDevice)
+library(showtext)
 library(lemon)
 library(ggpubr)
 library(knitr)
@@ -41,50 +42,16 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
 
-knitr::opts_chunk$set(echo = TRUE, fig.height = 3, fig.width = 3, 
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
+                      fig.height = 3, fig.width = 3, 
                       fig.align = "center",
                       out.width = "95%",
-                      dev = "tikz",
-                      warning = FALSE,
-                      message = FALSE)
-
+                      fig.showtext = TRUE)
 # Color blind safe colors.
 gg_okabe <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-options(ggplot2.discrete.fill = gg_okabe, ggplot2.discrete.color = gg_okabe)
-
-
-options(
-  tikzXelatexPackages = c(
-    "\\usepackage{tikz}\n",
-    "\\usepackage[active,tightpage,xetex]{preview}\n",
-    "\\usepackage{xunicode}\n",
-    "\\usepackage{amssymb, amsmath}\n",
-    "\\usepackage{unicode-math}\n",
-    "\\setmathfont[Scale=0.86]{Asana-Math.otf}\n",
-    "\\PreviewEnvironment{pgfpicture}\n",
-    "\\setlength\\PreviewBorder{0pt}\n",
-    "\\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}\n",
-    "\\setmainfont{NotoSerif-Regular.ttf}[ItalicFont     = {NotoSerif-Italic.ttf},
-                                    BoldFont       = {NotoSerif-Bold.ttf},
-                                    BoldItalicFont = {NotoSerif-BoldItalic.ttf}]\n",
-    "\\setsansfont{NotoSans-Regular.ttf}[ItalicFont     = {NotoSans-Italic.ttf},
-                                   BoldFont       = {NotoSans-Bold.ttf},
-                                   BoldItalicFont = {NotoSans-BoldItalic.ttf}]\n",
-    "\\setmonofont[Mapping=tex-ansi]{Source Code Pro}\n",
-    "\\usepackage{xeCJK}\n",
-    "\\setCJKmainfont{Noto Sans CJK JP}[]\n",
-    "\\setCJKmainfont{Noto Sans CJK JP}[]\n",
-    "\\usepackage{microtype}\n",
-    "\\UseMicrotypeSet[protrusion]{basicmath}\n",
-    "\\usepackage{textgreek}\n",
-    "\\usepackage{textcomp}\n",
-    "\\usetikzlibrary{matrix, tikzmark, fit, shapes,}\n",
-    "\\usetikzlibrary{arrows, arrows.meta, shapes.geometric, positioning}\n",
-    "\\usetikzlibrary{calc, intersections,through}\n",
-    "\\usetikzlibrary{decorations.text, decorations.markings}\n"
-  ),
-  tikzDefaultEngine="xetex",
-  tikzMetricPackages = c("\\usetikzpackage{calc}"))
+# Google fonts for plots
+font_add_google("Noto Sans JP", "notosanscjk")
+font_add_google("Noto Sans", "notosans")
 ```
 
 # Block Quote
