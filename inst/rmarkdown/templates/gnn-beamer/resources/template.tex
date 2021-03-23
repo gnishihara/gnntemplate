@@ -1,33 +1,47 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(handout)$handout,$endif$$if(colorlinks)$dvipsnames,$endif$$if(beamer)$ignorenonframetext,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 
+\usepackage{xeCJK}
+\usepackage{zxjatype}
 \usepackage{mathtools}
 \usepackage{amssymb,amsmath,xfrac}
-\usepackage{xunicode}
+\usepackage{unicode-math, xunicode}
 \usepackage{fontawesome}
-\usepackage[no-math]{fontspec}
-\usepackage{xeCJK}
+\usepackage{textgreek}
+
+% \usepackage[no-math]{fontspec}
 
 \usepackage{bm}
-
 \usefonttheme{professionalfonts}
-\usepackage{unicode-math}
 %\setmathfont[Scale=0.86]{Asana-Math.otf}
-\setmathfont[Scale = 0.9]{XITSMath-Regular.otf}[BoldFont = {XITSMath-Bold.otf}]
-\setmainfont{NotoSerif-Regular.ttf}[ItalicFont     = {NotoSerif-Italic.ttf},
-                                    BoldFont       = {NotoSerif-Bold.ttf},
-                                    BoldItalicFont = {NotoSerif-BoldItalic.ttf}]
-\setsansfont{NotoSans-Regular.ttf}[ItalicFont     = {NotoSans-Italic.ttf},
-                                   BoldFont       = {NotoSans-Bold.ttf},
-                                   BoldItalicFont = {NotoSans-BoldItalic.ttf}]
-\defaultfontfeatures{Ligatures=TeX, Scale=MatchLowercase, Mapping=tex-text}
+% \setmathfont[Scale = 0.9]{XITSMath-Regular.otf}[BoldFont = {XITSMath-Bold.otf}]
+% \setmainfont{NotoSerif-Regular.ttf}[ItalicFont     = {NotoSerif-Italic.ttf},
+%                                     BoldFont       = {NotoSerif-Bold.ttf},
+%                                     BoldItalicFont = {NotoSerif-BoldItalic.ttf}]
+% \setsansfont{NotoSans-Regular.ttf}[ItalicFont     = {NotoSans-Italic.ttf},
+%                                    BoldFont       = {NotoSans-Bold.ttf},
+%                                    BoldItalicFont = {NotoSans-BoldItalic.ttf}]
+% \defaultfontfeatures{Ligatures=TeX, Scale=MatchLowercase, Mapping=tex-text}
 
-\XeTeXlinebreaklocale "ja"
-\xeCJKsetup{CJKmath=true}
+% \XeTeXlinebreaklocale "ja"
+% \xeCJKsetup{CJKmath=true}
 %\setCJKmainfont{Noto Serif CJK JP}
-\setCJKmainfont{Noto Sans CJK JP}
-\setCJKsansfont{Noto Sans CJK JP}
-\setCJKmonofont{Noto Sans Mono CJK JP}
+% \setCJKmainfont{Noto Sans CJK JP}
+% \setCJKsansfont{Noto Sans CJK JP}
+% \setCJKmonofont{Noto Sans Mono CJK JP}
 
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+
+\setmainfont[Path=/usr/share/fonts/Noto/]{NotoSerif-Regular.ttf}[ItalicFont = NotoSerif-Italic.ttf,
+  BoldFont = NotoSerif-Bold.ttf,
+  BoldItalicFont = Notoserif-BoldItalic.ttf]
+\setsansfont[Path=/usr/share/fonts/Noto/]{NotoSans-Regular.ttf}[ItalicFont = NotoSans-Italic.ttf,
+  BoldFont = NotoSans-Bold.ttf,
+  BoldItalicFont = NotoSans-BoldItalic.ttf]
+\setmonofont[Mapping=tex-ansi]{Source Code Pro}
+\setmathfont{XITS Math}
+\setCJKmainfont[AutoFakeBold=true]{Noto Serif CJK JP}
+\setCJKsansfont[AutoFakeBold=true]{Noto Sans CJK JP}
+\setCJKmonofont[AutoFakeBold=true]{Noto Sans Mono CJK JP}
 
 % To make handouts or not.
 $if(handout)$
