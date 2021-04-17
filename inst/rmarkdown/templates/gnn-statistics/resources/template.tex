@@ -545,24 +545,25 @@ textcomp
 \setbeamertemplate{headline}{} % Remove header navigation bar
 \setbeamertemplate{navigation symbols}{}
 \makeatletter
-\def\progressbar@progressbar{} % the progress bar
-\newdimen\progressbar@pbht %progressbar height
-\newdimen\progressbar@pbwd %progressbar width
-
-\progressbar@pbwd=\paperwidth
-\progressbar@pbht=1.25ex
-
-% the progress bar
-\def\progressbar@progressbar{%
-  \begin{tikzpicture}[very thin]
-    \draw[fill=nagasakiBlue] (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
-      \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\insertframenumber / \inserttotalframenumber * \paperwidth, \progressbar@pbht);
-  \end{tikzpicture}%
-}
+% \def\progressbar@progressbar{} % the progress bar
+% \newdimen\progressbar@pbht %progressbar height
+% \newdimen\progressbar@pbwd %progressbar width
+%
+% \progressbar@pbwd=\paperwidth
+% \progressbar@pbht=1.25ex
+%
+% % the progress bar
+% \def\progressbar@progressbar{%
+%   \begin{tikzpicture}[very thin]
+%     \draw[fill=nagasakiBlue] (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
+%       \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\insertframenumber / \inserttotalframenumber * \paperwidth, \progressbar@pbht);
+%   \end{tikzpicture}%
+% }
 
 \addtobeamertemplate{headline} {
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,center,dp=0ex]{nagasakiBlue}%
-    \progressbar@progressbar%
+  % \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,center,dp=0ex]{nagasakiBlue}%
+    % \progressbar@progressbar%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0ex,center,dp=0ex]{nagasakiBlue}%
   \end{beamercolorbox}%
 }
 \makeatother
