@@ -27,7 +27,6 @@
 
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 
-
 \setmainfont[Path=/usr/share/fonts/Noto/]{NotoSerif-Regular.ttf}[ItalicFont = NotoSerif-Italic.ttf,
   BoldFont = NotoSerif-Bold.ttf,
   BoldItalicFont = Notoserif-BoldItalic.ttf]

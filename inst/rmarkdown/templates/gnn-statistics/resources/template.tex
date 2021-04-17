@@ -546,28 +546,17 @@ textcomp
 \setbeamertemplate{navigation symbols}{}
 \makeatletter
 \def\progressbar@progressbar{} % the progress bar
-\newcount\progressbar@tmpcounta% auxiliary counter
-\newcount\progressbar@tmpcountb% auxiliary counter
 \newdimen\progressbar@pbht %progressbar height
 \newdimen\progressbar@pbwd %progressbar width
-\newdimen\progressbar@tmpdim % auxiliary dimension
 
 \progressbar@pbwd=\paperwidth
 \progressbar@pbht=1.25ex
 
 % the progress bar
 \def\progressbar@progressbar{%
-  \progressbar@tmpcounta=\insertframenumber
-  \progressbar@tmpcountb=\inserttotalframenumber
-  \progressbar@tmpdim=\progressbar@pbwd
-  \divide\progressbar@tmpdim by 100
-  \multiply\progressbar@tmpdim by \progressbar@tmpcounta
-  \divide\progressbar@tmpdim by \progressbar@tmpcountb
-  \multiply\progressbar@tmpdim by 100
-
   \begin{tikzpicture}[very thin]
     \draw[fill=nagasakiBlue] (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
-    \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\progressbar@tmpdim, \progressbar@pbht);
+      \draw[fill=darkgrey] (0pt, 0pt) rectangle ++ (\insertframenumber / \inserttotalframenumber * \paperwidth, \progressbar@pbht);
   \end{tikzpicture}%
 }
 
